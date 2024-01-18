@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style_index.css">
+    <link rel="import" href="./header.html">
+    <link rel="import" href="./main_content.html">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".header").load("./header.html");
+            $(".main").load("./main_content.html");
+            $(".footer").load("./footer.html");
+        });
+    </script>
+    <script>/*최상단으로 이동 버튼*/
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 500) {
+                    $('#topButton').fadeIn();
+                } else {
+                    $('#topButton').fadeOut();
+                }
+            });
+            $("#topButtonImg").click(function () {
+                $('html, body').animate({ scrollTop: 0 }, '300');
+            });
+        });
+    </script>
+    <script src="./js/like.js"></script>
+    <script src="./js/filter.js"></script>
+
+</head>
+
+<body>
+    <div id="topButton" style="cursor: pointer">
+        <img src="/img/topbtn.png" id="topButtonImg">
+    </div>
+
+
+    <div class="sticky_line_area">
+        <div class="header header_top" style="position: sticky;">
+        </div>
+
+        <h2 class="page_title">STYLE</h2>
+
+        <div class="nav"><!--전체-->
+            <div class="nav_align">
+                <ul>
+                    <li><a href="#" style="color: #4545ff ;">겨울룩트렌드</a></li>
+                    <li><a href="#">팔로잉</a></li>
+                    <li><a href="#" style="border-bottom: 2px solid black;"><b>발견</b></a></li>
+                    <li><a href="#">랭킹</a></li>
+                    <li><a href="#">트렌드</a></li>
+                    <li><a href="#">셀럽 스타일</a></li>
+                    <li><a href="#">스니커즈</a></li>
+                    <li><a href="#">럭셔리</a></li>
+                    <li><a href="#">의류</a></li>
+                    <li><a href="#">가방</a></li>
+                    <li><a href="#">컬렉터블</a></li>
+                    <li><a href="#">액세서리</a></li>
+                </ul>
+
+            </div>
+
+        </div><!--nav-->
+
+    </div><!--sticky line area-->
+
+    <div class="container">
+
+        <div class="menu">
+            <div class="round_nav">
+                <div class="nav_event">
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img1.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                챌린지
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img2.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                패딩코디
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img3.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                겨울아우터
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img4.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                스타일랭킹
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img5.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                초겨울룩
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img6.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                기온별코디
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img7.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                일주일패션
+                            </p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img8.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                아웃핏추천
+                            </p>
+                        </div>
+                    </a>
+                    <a href="#" class="event">
+                        <div class="event_img">
+                            <img src="./img/event_img9.webp">
+                        </div>
+                        <div class="event_p">
+                            <p>
+                                방한신발
+                            </p>
+                        </div>
+                    </a>
+
+                </div><!--nav event-->
+            </div><!--round nav-->
+
+            <div class="container line"></div>
+
+            <div class="filter">
+                <a id="filter1" href="#" onclick="filter1();"><b>인기순</b></a>
+                <span> | </span>
+                <a id="filter2" href="#" onclick="filter2();">최신순</a>
+            </div>
+        </div><!--menu-->
+
+        <div class="main">
+        </div><!--main-->
+
+        <div class="footer">
+        </div>
+
+    </div><!--container-->
+</body>
+
+</html>

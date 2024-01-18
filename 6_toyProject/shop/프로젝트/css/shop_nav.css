@@ -1,0 +1,47 @@
+.shoptap{
+    position: sticky;
+
+}
+nav{
+    display: block;
+}
+.tabs{
+    border-bottom: 1px solid lightgray;
+    position: relative;
+}
+
+.ul_tab .ul_search_tab{
+    padding: 0;
+    /* max-width: 1280px; */
+}
+.ul_tab.inline{
+    display: flex;
+    /* flex-wrap: nowrap; */
+    height: 44px;
+    /* overflow-x: auto; */
+    /* overflow-y: hidden; */
+}
+li, ol, ul{
+    /* padding: 0; */
+    list-style: none;
+    margin: 10px;
+    padding: 0;
+    font-size: medium;
+}
+ul{
+    padding: 0;
+}
+
+ul_tab{
+    margin: 0;
+}
+
+
+ /* .ul_tab.inline .li_tab {
+    display: inline-flex;
+}  */
+
+.ul_tab .ul_search_tab .inline .has_button{
+    padding: 0;
+    /* font-size: medium; */
+}

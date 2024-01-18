@@ -1,0 +1,136 @@
+#maininner{
+  /*border: 1px solid salmon;*/
+  align-items: center;
+  display: flex;
+  height: 64px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#logo{
+  height: 20px;
+  width: 100px;
+  display: flex;
+}
+#topinner{
+  display: flex;
+  height: 22px;
+  margin: 0 auto;
+  /*padding: 8px 40px 0;*/
+}
+#headtop{
+  /*border: 1px solid salmon;*/
+  height: 100%;
+  display: flex;
+  float: right;
+}
+#toplist{
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+  position: sticky;
+}
+#topitem{
+  list-style: none;
+}
+#toplink{
+  align-items: center;
+  color: rgba(34, 34, 34, .8);
+  display: flex;
+  font-size: 12px;
+  letter-spacing: -.06px;
+  margin: auto;
+  margin-left: 20px;
+}
+#center{
+  align-items: center;
+  display: flex;
+  margin: 0 20px;
+  max-width: 466px;
+}
+#right{
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  min-width: 120px;
+  margin-right: 0;
+  padding-right: 0;
+}
+#gnbarea{
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+}
+#gnbContainer{
+  display: block;
+}
+#gnbList{
+  display: flex;
+}
+#gnbItem{
+  list-style: none;
+  display: flex;
+  margin: auto;
+  margin-left: 20px;
+}
+#gnblink{
+  display: flex;
+  font-size: 18px;
+  letter-spacing: -.27px;
+  position: relative;
+}
+
+#searchbtn {
+  width: 28px;
+  height: 28px;
+}
+#portal_target{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+}
+#nav{
+  display: block;
+}
+#ul_tab{
+  display: flex;
+  height: 44px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+#li_tab{
+  display: inline-flex;
+  list-style: none;
+  flex: 0 0 auto;
+}
+#li_tab+#li_tab{
+  margin-left: 27px;
+}
+#tab{
+  display: inline-flex;
+  height: 100%;
+  padding-bottom: 6px;
+  padding-top: 15px;
+  border-bottom: 2px solid #222;
+  color: #222;
+  cursor: pointer;
+  position: relative; 
+}
+a{
+  text-decoration: none; 
+}
+.tab:not(.active){
+  border-bottom-color: transparent!important;
+}
+#tab_name{
+  font-size: 16px;
+  line-height: 1.25;
+  background-color: #fff;
+  position: relative;
+}
+.active{
+  font-weight: 700;
+}

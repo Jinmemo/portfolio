@@ -1,0 +1,155 @@
+#maininner {
+    align-items: center;
+    display: flex;
+    height: 64px;
+    justify-content: space-between;
+    min-width: 320px;
+    padding: 20px 40px;
+}
+
+#logo {
+    height: 20px;
+    width: 100px;
+    display: flex;
+}
+
+#topinner {
+    display: flex;
+    height: 22px;
+    padding: 8px 40px 0;
+}
+
+#toplist {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+
+#topitem {
+    list-style: none;
+}
+
+#topitem+#topitem {
+    margin-left: 24px;
+}
+
+#toplink {
+    align-items: center;
+    color: rgba(34, 34, 34, .8);
+    display: flex;
+    font-size: 12px;
+    letter-spacing: -.06px;
+}
+
+#center {
+    align-items: center;
+    display: flex;
+    margin: 0 20px;
+    max-width: 466px;
+}
+
+#right {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    min-width: 120px;
+}
+
+#gnbarea {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+
+#gnbContainer {
+    display: block;
+}
+
+#gnbList {
+    align-items: center;
+    display: flex;
+}
+
+#gnbItem {
+    margin-right: 40px;
+    list-style: none;
+}
+
+#gnblink {
+    display: flex;
+    font-size: 18px;
+    letter-spacing: -.27px;
+    position: relative;
+}
+
+#search_btn_box {
+    display: flex;
+    width: 28px;
+    height: 20px;
+}
+
+#searchbtn {
+    width: 28px;
+    height: 28px;
+}
+
+#portal_target {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px;
+}
+
+#nav {
+    display: block;
+}
+
+#ul_tab {
+    display: flex;
+    height: 44px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#li_tab {
+    display: inline-flex;
+    list-style: none;
+    flex: 0 0 auto;
+}
+
+#li_tab+#li_tab {
+    margin-left: 27px;
+}
+
+#tab {
+    display: inline-flex;
+    height: 100%;
+    padding-bottom: 6px;
+    padding-top: 15px;
+    border-bottom: 2px solid #222;
+    color: #222;
+    cursor: pointer;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+}
+
+.tab:not(.active) {
+    border-bottom-color: transparent !important;
+}
+
+#tab_name {
+    font-size: 16px;
+    line-height: 1.25;
+    background-color: #fff;
+    position: relative;
+}
+
+.active {
+    font-weight: 700;
+}
+

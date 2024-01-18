@@ -1,0 +1,41 @@
+/* style.css 파일 내용 */
+/* 페이지 전반적인 스타일들을 정의합니다. */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 맨 위로 올라가는 버튼 스타일 */
+  #scrollBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    
+  }
+
+/*33333333333333333333333333333333333333333*/
+  #topButton {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 2%;
+    bottom: 50px;
+    z-index: 999;
+    display: none;
+}
+#topButton img {
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/search.css">
+    <script src="./js/searchRandom.js"></script>
+
+</head>
+
+<body>
+    <div class="page">
+        <div class="close_area">
+            <div class="btn_close">
+                <a href="./style_index.html">
+                    <img src="./img/close-btn.png" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="search_area">
+            <div class="search_input">
+                <input class="input1" type="search" placeholder="브랜드, 상품, 프로필, 태그 등">
+                <div class="line"></div>
+            </div><!--search_input-->
+            <div class="rcm-area">
+                <p><b>추천 검색어</b></p>
+                <div class="rcm-button">
+                    <button>T1 유니폼</button>
+                    <button>어그 부츠</button>
+                    <button>손흥민 패딩</button>
+                    <button>아크네 목도리</button>
+                    <button>뉴진스 민지 패딩</button>
+                    <button>1996 눕시</button>
+                </div><!--rcm-button-->
+            </div><!--rcm-area-->
+        </div><!--search-area-->
+        <div class="popular-area">
+            <div class="popular-area-title">
+                <p><b>인기 검색어</b></p>
+                <a id="printTimeButton"
+                    onclick="shuffleElements(document.getElementById('myList1')), shuffleElements1(document.getElementById('myList2'));"><img
+                        src="./img/refresh.png" alt=""></a>
+                <p id="currentTime"></p>
+            </div><!--popular-area-title-->
+            <div class="popular-idx" style="display: flex;">
+                <div class="idx1">
+                    <ul id="list">
+                        <li><b>1 </b></li>
+                        <li><b>2 </b></li>
+                        <li><b>3 </b></li>
+                        <li><b>4 </b></li>
+                        <li><b>5 </b></li>
+                        <li><b>6 </b></li>
+                        <li><b>7 </b></li>
+                        <li><b>8 </b></li>
+                        <li><b>9 </b></li>
+                        <li><b>10 </b></li>
+                    </ul>
+                    <ul id="myList1">
+                        <a href="#">
+                            <li>호카</li>
+                        </a>
+                        <a href="#">
+                            <li>퍼피렛</li>
+                        </a>
+
+                        <a href="#">
+                            <li>언더마이카</li>
+                        </a>
+                        <a href="#">
+                            <li>시카고</li>
+                        </a>
+                        <a href="#">
+                            <li>왈라비</li>
+                        </a>
+                        <a href="#">
+                            <li>킨</li>
+                        </a>
+                        <a href="#">
+                            <li>2002</li>
+                        </a>
+                        <a href="#">
+                            <li>이미스</li>
+                        </a>
+                        <a href="#">
+                            <li>코르테즈</li>
+                        </a>
+                        <a href="#">
+                            <li>코스</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="idx2">
+                    <ul id="list">
+                        <li><b>11 </b></li>
+                        <li><b>12 </b></li>
+                        <li><b>13 </b></li>
+                        <li><b>14 </b></li>
+                        <li><b>15 </b></li>
+                        <li><b>16 </b></li>
+                        <li><b>17 </b></li>
+                        <li><b>18 </b></li>
+                        <li><b>19 </b></li>
+                        <li><b>20 </b></li>
+                    </ul>
+                    <ul id="myList2">
+                        <a href="#">
+                            <li>휴먼메이드</li>
+                        </a>
+                        <a href="#">
+                            <li>니트</li>
+                        </a>
+
+                        <a href="#">
+                            <li>카드지갑</li>
+                        </a>
+                        <a href="#">
+                            <li>보메로</li>
+                        </a>
+                        <a href="#">
+                            <li>나이키 스투시</li>
+                        </a>
+                        <a href="#">
+                            <li>후리스</li>
+                        </a>
+                        <a href="#">
+                            <li>백팩</li>
+                        </a>
+                        <a href="#">
+                            <li>어그</li>
+                        </a>
+                        <a href="#">
+                            <li>아식스</li>
+                        </a>
+                        <a href="#">
+                            <li>아디다스</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div><!--popular-idx-->
+    </div><!--popular-area-->
+
+    <div class="theme-area">
+        <div class="theme-area-title">
+            <p><b>테마 검색어</b></p>
+        </div><!--theme-area-title-->
+        <div class="theme-idx" style="display: flex;">
+            <div class="idx1">
+                <ul id="text1">
+                    <a href="#">
+                        <li><b>1 </b>어그와 함께 따뜻한</li>
+                    </a>
+                    <a href="#">
+                        <li><b>2 </b>지금 필요한 가벼운 패딩</li>
+                    </a>
+
+                    <a href="#">
+                        <li><b>3 </b>백 하나에 무한한 공간</li>
+                    </a>
+                </ul>
+            </div><!--idx1-->
+            <div class="idx2">
+                <ul id="text1">
+                    <a href="#">
+                        <li><b>4 </b>올드머니 패션의 정석</li>
+                    </a>
+                    <a href="#">
+                        <li><b>5 </b>미니멀 큐레이션</li>
+                    </a>
+
+                    <a href="#">
+                        <li><b>6 </b>감각적인 밀리터리</li>
+                    </a>
+                </ul>
+            </div><!--idx2-->
+        </div><!--theme-idx-->
+    </div><!--theme-area-->
+
+    </div><!--page-->
+</body>
+
+<script src="./js/crrentTime.js"></script>
+
+</html>

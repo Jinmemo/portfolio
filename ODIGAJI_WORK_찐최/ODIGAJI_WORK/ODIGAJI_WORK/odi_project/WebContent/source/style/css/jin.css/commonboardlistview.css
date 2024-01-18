@@ -1,0 +1,115 @@
+.container {
+	background-color: white;
+	max-width: 1900px;
+	height: 100%;
+	margin-top: 10%;
+	margin-left: 12%;
+	margin-right: 12%;
+}
+
+.mainthema {
+	display: flex;
+	justify-content: center;
+	font-size: 50px;
+	font-weight: 900;
+	font-family: 'SBAggroB';
+	font-size: 40px;
+	color: rgb(101, 49, 101);
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-area {
+	display: flex;
+	justify-content: center;
+	margin-top: 2%;
+	height: 60px;
+}
+
+/* 글 작성 버튼 */
+.write-area {
+	display : flex;
+	justify-content: flex-end;
+	margin-right : 40px;
+	/* margin-right : 50px; */
+}
+
+.writeButton{
+	border-radius: 10px;
+	border: none;
+	cursor : pointer;
+	background-color: #999;
+	color : white;
+	font-family: 'SBAggroM';
+	font-size : 17px;
+	width : 105px;
+	height : 34px;
+	border-radius: 30px;
+	display : flex;
+	align-items : center;
+	justify-content: center;
+	/* background-color : #56128d; */
+}
+
+.writeButton a {
+	width: 100%;
+	height: 100%;
+}
+
+#keyword {
+	width: 400px;
+	height: 18px;
+}
+
+#searchbtn {
+	height: 25px;
+	border: 0.1px solid black;
+	background-color: white
+}
+
+.paging-area a {
+	color: rgb(87, 78, 92);
+}
+
+.paging-area img {
+	width: 30px;
+	height: 30px;
+}
+
+.bottom-area {
+	/* background-color: rgba(155, 74, 155, 0.226); */
+}
+
+
+
+/* 게시글 area */
+.listarea {
+	text-align: center;
+	padding-bottom : 30px;
+	/* border-bottom: 0.5px solid; */
+}
+
+.listarea, .paging-area {
+	margin-top: 2%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 게시글 표 수정  */
+.list-area_thead th {
+	font-size : 17px;
+	font-weight: 500;
+	vertical-align: middle;
+	height: 60px;
+	background-color: #f8f9fa;
+	
+}
+
+tbody tr, thead tr {
+	text-align: center;
+	border-bottom: 0.5px solid #666;
+}
+
+.list-area_tbody td{
+	padding : 7px;
+	font-family: 'SBAggroM';
+}

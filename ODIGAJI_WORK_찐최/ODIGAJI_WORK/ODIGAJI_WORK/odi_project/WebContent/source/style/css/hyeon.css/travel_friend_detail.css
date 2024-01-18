@@ -1,0 +1,739 @@
+/* 공통 */
+#main{
+    font-family: 'SBAggroM';
+    margin: 120px auto 10px; 
+    /* 헤더 높이만큼 여백 150추가*/
+    /* margin-left: 300px ;  */
+    /*사이드 너비만큼 여백 추가*/
+    overflow: hidden;  
+    /* 내용이 부모를 넘어가지 않게함 */
+    margin-bottom: 100px;
+ 
+}
+.reply{
+    background-color: rgb(233, 233, 233);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 1300px;
+    margin:auto;
+	box-sizing: border-box;
+    -webkit-transition: all .3s;
+}
+
+section{  
+    /* border: 1px solid #ccc; */
+    /* border-radius: 5px; */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width:1300px;
+    margin: auto;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+}
+
+/* 뒤로가기 화살표 */
+.backspace{
+    position: relative;
+    top: 0px;
+    /* font-size: 100px; */
+    font-variation-settings:
+    'FILL' 10,
+    'wght' 1000,
+    'GRAD' 50,
+    'opsz' 50
+}
+
+
+
+
+/* --------------- 동행 게시판 --------------- */
+
+.friendPage{
+    display: flex;
+    justify-content: center;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    margin-top: 20px;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+.friendPage a{
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --------------- 본문 타이틀 --------------- */
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    background-color: rgb(233, 233, 233);
+    height: 100px;
+    align-items: center;
+    margin-left:310px;
+}
+/* 가방 아이콘 */
+.title span{  
+    font-size: 45px;
+    padding: 20px;
+}
+
+
+/* --------------- 글 내용 --------------- */
+
+.contentSection{
+    padding: 50px;
+/*     white-space: pre-line; 자기소개에서 줄 바꿈 및 공백 그대로 표시 */
+    font-size: 20px;
+    margin-left: 310px;
+}
+
+.content-inner{
+	margin-bottom : 70px;
+	white-space: pre-line;
+}
+
+
+.content-outer{
+    display: flex;
+    margin: 5px;
+    color: black;
+}
+/* 자세한 여행 정보,함께하는 동행 */
+.content-title{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom:3rem;
+}
+
+/* 자세한 여행 정보 */
+.information{
+    margin-right: 180px;
+}
+
+/* 카테고리, 장소, 날짜,연령대 한줄정렬 및 세로 가운데 정렬 */
+.infor-inline{
+	display:flex;
+	align-items: flex-end;
+	margin-bottom:50px;
+}
+
+/* 카테고리, 장소, 날짜,연령대 아이콘 이미지, 암호아이콘 */
+.infor-inline img,  .infor-inline-secret img{
+	margin-left: 10px;
+	width: 30px;
+	height: auto;
+	align-items: center;
+	margin-right: 10px;
+}
+
+/* 로그인한 유저인 경우, 수정, 삭제 버튼 정렬 */
+.infor-button{
+	display:flex;
+	justify-content: space-evenly;
+}
+
+/* 로그인한 유저인 경우, 수정, 삭제 버튼 스타일 */
+.infor-button button[type='button']{
+	width:100px;
+	height : 50px;
+	font-size: 20px;
+	font-family:'SBAggroL';
+	border : 1px solid black;
+}
+
+
+.infor-inline-secret{
+	display:flex;
+	align-items: flex-end;
+	margin-bottom:20px;
+}
+
+/* 동행 신청하기, 동행 해제하기 버튼 정렬 */
+.infor-acButton{
+	display:flex;
+	justify-content: center;
+}
+
+/* 동행 신청하기, 동행 해제하기 버튼 스타일 */
+.infor-acButton button[type='button']{
+	width:500px;
+	height : 50px;
+	font-size: 20px;
+	font-family:'SBAggroL';
+	border : 1px solid black;
+	transition: background-color 0.5s ease;
+}
+
+.btn-accompany:hover {
+	background-color: #3498db;
+    color: #fff;
+}
+
+.btn-noaccompany {
+	background-color:  rgb(233, 233, 233);
+    color: black;
+}
+
+
+/* 동행 취소버튼 스타일 */
+.btn-noaccompany{
+	background-color: #3498db;
+	color: #fff;
+}
+
+
+.btn-accompany{
+	background-color: rgb(233, 233, 233);
+	color: black;
+}
+
+
+/* --------------- 댓글 ---------------*/
+
+
+.reply input{
+    height: 50px;
+    width: 80%;
+    margin: 1%;
+    margin-right: 0;
+    font-size: 17px;
+    font-family:'SBAggroL';
+    border: 1px solid #ccc;
+}
+/* 댓글등록버튼 */
+#friend-reply-btn{ 
+    height: 55px;
+    width: 15%;
+    font-size: 17px;
+    margin-left: 0;
+    cursor: pointer;
+    font-family:'SBAggroM';
+    background-color: rgb(226, 199, 226);
+    color: rgb(50, 50, 50);
+    border: 1px solid #ccc;
+    background-color: yel;
+}
+#friend-reply-btn:hover{
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+/* 글 작성자만 보기  */
+.secret-Button{
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 17px;
+    margin-top: 0;
+    cursor: pointer;
+    color: gray;
+}
+.lock{
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* 댓글부분 */
+.reply-comments{
+    padding: 10px;
+    margin: 5px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-family:'SBAggroL';
+}
+.reply-comments tr, .reply-comments td, .reply-comments th{
+    border: 1px solid #ccc;
+    height: 30px;
+    padding: 5px;    
+    vertical-align: middle;
+}
+
+.reply-read{
+	text-align:center;
+}
+
+.reply-comments th{
+    font-weight: bold;
+    height: 40px;
+}
+.reply-comments th span{
+    vertical-align: middle;
+}
+
+/* td속성 정의 */
+.reply-comments th:nth-child(1){
+    text-align: center;
+    width: 150px;
+}
+.reply-comments th:nth-child(2){
+
+    width: 720px;
+}
+.reply-comments th:nth-child(3){
+    width: 180px;
+    text-align: center;
+    color: rgb(0, 0, 0, 0.8);
+}
+
+.reply-comments th:nth-child(4){
+    width: 150px;
+    text-align: center;
+    color: rgb(0, 0, 0, 0.8);
+}
+
+.reply-comments td:nth-child(1){
+	text-align: center;
+}
+
+.reply-comments td:nth-child(3){
+	text-align: center;
+}
+
+
+/* 수정/삭제 버튼 */
+.replyUpDe {
+	margin-left:15px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	font-family: 'SBAggroL';
+	width:50px;
+	height:30px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.replyUpDe:hover{
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-family: 'SBAggroM';
+}
+
+/* 비밀 댓글 */
+.sceret-reply{
+	display:flex;
+}
+
+/* 비밀 댓글 이미지 */
+.sceret-reply-img{
+	width: 20px;
+	height: auto;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+
+/* 댓글 수정 모달창 스타일 */
+/* 모달 스타일 */
+.modal {
+	display: none; /* 처음에는 숨겨져 있음 */
+	position: fixed; /* 고정 위치 */
+	z-index: 1; /* 최상위에 배치 */
+	left: 500px;
+	top: 300px;
+	width: 100px; /* 전체 너비 */
+	height: auto; /* 전체 높이 */
+	background-color: rgba(0, 0, 0, 0.5); /* 약간의 투명한 검은색 배경 */
+}
+
+/* 모달 내용 */
+.modal-content {
+	background-color: #fefefe;
+/* 	margin: 10% auto; 위에서 10% 내리고 가운데 정렬 */
+	padding: 20px;
+	width:50%;
+	border: 1px solid #888;
+	 /* 화면 크기에 따라 조절 가능 */
+}
+
+.modal-content textarea {
+	resize : none;
+	width : 80%;
+	height : 100px;
+}
+
+/* 닫기 버튼 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}/* 공통 */
+#main{
+    font-family: 'SBAggroM';
+    margin: 120px auto 10px; 
+    /* 헤더 높이만큼 여백 150추가*/
+    /* margin-left: 300px ;  */
+    /*사이드 너비만큼 여백 추가*/
+    overflow: hidden;  
+    /* 내용이 부모를 넘어가지 않게함 */
+    margin-bottom: 100px;
+ 
+}
+.reply{
+    background-color: rgb(233, 233, 233);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 1300px;
+    margin:auto;
+	box-sizing: border-box;
+    -webkit-transition: all .3s;
+}
+
+section{  
+    /* border: 1px solid #ccc; */
+    /* border-radius: 5px; */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width:1300px;
+    margin: auto;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+}
+
+/* 뒤로가기 화살표 */
+.backspace{
+    position: relative;
+    top: 0px;
+    /* font-size: 100px; */
+    font-variation-settings:
+    'FILL' 10,
+    'wght' 1000,
+    'GRAD' 50,
+    'opsz' 50
+}
+
+
+
+
+/* --------------- 동행 게시판 --------------- */
+
+.friendPage{
+    display: flex;
+    justify-content: center;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    margin-top: 20px;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+.friendPage a{
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --------------- 본문 타이틀 --------------- */
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    background-color: rgb(233, 233, 233);
+    height: 100px;
+    align-items: center;
+    margin-left:310px;
+}
+/* 가방 아이콘 */
+.title span{  
+    font-size: 45px;
+    padding: 20px;
+}
+
+
+/* --------------- 글 내용 --------------- */
+
+.contentSection{
+    padding: 50px;
+/*     white-space: pre-line; 자기소개에서 줄 바꿈 및 공백 그대로 표시 */
+    font-size: 20px;
+    margin-left: 310px;
+}
+
+.content-inner{
+	margin-bottom : 70px;
+	white-space: pre-line;
+}
+
+
+.content-outer{
+    display: flex;
+    margin: 5px;
+    color: black;
+}
+/* 자세한 여행 정보,함께하는 동행 */
+.content-title{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom:3rem;
+}
+
+/* 자세한 여행 정보 */
+.information{
+    margin-right: 180px;
+}
+
+/* 카테고리, 장소, 날짜,연령대 한줄정렬 및 세로 가운데 정렬 */
+.infor-inline{
+	display:flex;
+	align-items: flex-end;
+	margin-bottom:50px;
+}
+
+/* 카테고리, 장소, 날짜,연령대 아이콘 이미지, 암호아이콘 */
+.infor-inline img,  .infor-inline-secret img{
+	margin-left: 10px;
+	width: 30px;
+	height: auto;
+	align-items: center;
+	margin-right: 10px;
+}
+
+/* 로그인한 유저인 경우, 수정, 삭제 버튼 정렬 */
+.infor-button{
+	display:flex;
+	justify-content: space-evenly;
+}
+
+/* 로그인한 유저인 경우, 수정, 삭제 버튼 스타일 */
+.infor-button button[type='button']{
+	width:100px;
+	height : 50px;
+	font-size: 20px;
+	font-family:'SBAggroL';
+	border : 1px solid black;
+}
+
+
+.infor-inline-secret{
+	display:flex;
+	align-items: flex-end;
+	margin-bottom:20px;
+}
+
+/* 동행 신청하기, 동행 해제하기 버튼 정렬 */
+.infor-acButton{
+	display:flex;
+	justify-content: center;
+}
+
+/* 동행 신청하기, 동행 해제하기 버튼 스타일 */
+.infor-acButton button[type='button']{
+	width:500px;
+	height : 50px;
+	font-size: 20px;
+	font-family:'SBAggroL';
+	border : 1px solid black;
+	transition: background-color 0.5s ease;
+}
+
+.btn-accompany:hover {
+	background-color: #3498db;
+    color: #fff;
+}
+
+.btn-noaccompany {
+	background-color:  rgb(233, 233, 233);
+    color: black;
+}
+
+
+/* 동행 취소버튼 스타일 */
+.btn-noaccompany{
+	background-color: #3498db;
+	color: #fff;
+}
+
+
+.btn-accompany{
+	background-color: rgb(233, 233, 233);
+	color: black;
+}
+
+
+/* --------------- 댓글 ---------------*/
+
+
+.reply input{
+    height: 50px;
+    width: 80%;
+    margin: 1%;
+    margin-right: 0;
+    font-size: 17px;
+    font-family:'SBAggroL';
+    border: 1px solid #ccc;
+}
+/* 댓글등록버튼 */
+#friend-reply-btn{ 
+    height: 55px;
+    width: 15%;
+    font-size: 17px;
+    margin-left: 0;
+    cursor: pointer;
+    font-family:'SBAggroM';
+    background-color: rgb(226, 199, 226);
+    color: rgb(50, 50, 50);
+    border: 1px solid #ccc;
+    background-color: yel;
+}
+#friend-reply-btn:hover{
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+/* 글 작성자만 보기  */
+.secret-Button{
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 17px;
+    margin-top: 0;
+    cursor: pointer;
+    color: gray;
+}
+.lock{
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* 댓글부분 */
+.reply-comments{
+    padding: 10px;
+    margin: 5px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-family:'SBAggroL';
+}
+.reply-comments tr, .reply-comments td, .reply-comments th{
+    border: 1px solid #ccc;
+    height: 30px;
+    padding: 5px;    
+    vertical-align: middle;
+}
+
+.reply-read{
+	text-align:center;
+}
+
+.reply-comments th{
+    font-weight: bold;
+    height: 40px;
+}
+.reply-comments th span{
+    vertical-align: middle;
+}
+
+/* td속성 정의 */
+.reply-comments th:nth-child(1){
+    text-align: center;
+    width: 150px;
+}
+.reply-comments th:nth-child(2){
+
+    width: 720px;
+}
+.reply-comments th:nth-child(3){
+    width: 180px;
+    text-align: center;
+    color: rgb(0, 0, 0, 0.8);
+}
+
+.reply-comments th:nth-child(4){
+    width: 150px;
+    text-align: center;
+    color: rgb(0, 0, 0, 0.8);
+}
+
+.reply-comments td:nth-child(1){
+	text-align: center;
+}
+
+.reply-comments td:nth-child(3){
+	text-align: center;
+}
+
+
+/* 수정/삭제 버튼 */
+.replyUpDe {
+	margin-left:15px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	font-family: 'SBAggroL';
+	width:50px;
+	height:30px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.replyUpDe:hover{
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-family: 'SBAggroM';
+}
+
+/* 비밀 댓글 */
+.sceret-reply{
+	display:flex;
+}
+
+/* 비밀 댓글 이미지 */
+.sceret-reply-img{
+	width: 20px;
+	height: auto;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+
+/* 댓글 수정 모달창 스타일 */
+/* 모달 스타일 */
+.modal {
+	display: none; /* 처음에는 숨겨져 있음 */
+	position: fixed; /* 고정 위치 */
+	z-index: 1; /* 최상위에 배치 */
+	left: 500px;
+	top: 300px;
+	width: 100px; /* 전체 너비 */
+	height: auto; /* 전체 높이 */
+	background-color: rgba(0, 0, 0, 0.5); /* 약간의 투명한 검은색 배경 */
+}
+
+/* 모달 내용 */
+.modal-content {
+	background-color: #fefefe;
+/* 	margin: 10% auto; 위에서 10% 내리고 가운데 정렬 */
+	padding: 20px;
+	width:50%;
+	border: 1px solid #888;
+	 /* 화면 크기에 따라 조절 가능 */
+}
+
+.modal-content textarea {
+	resize : none;
+	width : 80%;
+	height : 100px;
+}
+
+/* 닫기 버튼 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}

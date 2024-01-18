@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+<!-- namespace : 현재 mapper의 고유한 별칭  -->
+
+<!--  
+	*resultMap : 마이바티스 핵심 기능 중 하나
+	ResultSet으로부터 조회된 컬럼값을 하나씩 뽑아서 vo객체에 각 필드에 담는 JDBC코드를 대신 수행해줌
+	
+	<resultMap id="식별자" type="조회된 결과를 담아서 반환하고자 하는 vo객체의 타입">
+		<id column="
+회결과를 뽑고자 하는 DB의 PK칼럼명" property="결과값을 담아줄 필드명">  / result로 해도 상관없음
+		<result column="조회결과를 뽑고자 하는 DB테이블의 컬럼명" property="결과값을 담아줄 필드명">
+	</resultMap>
+-->
+<resultMap id='memberResultSet' type="member">
+	<!-- new Member();  -->
+	<id column="MEMBER_ID" property="memberId" />
+	<!-- m.setUserNo(rset.getInt("USER_NO"))  -->
+	<result column="MEMBER_PWD" property="memberPwd"/>
+	<!-- m.setUserId(rset.getString("USER_ID"))  -->
+	<result column="EMAIL" property="email"/>
+	<result column="MEMBER_NO" property="memberNo"/>
+	<result column="ADDRESS" property="address"/>
+	<result column="GENDER" property="gender"/>
+	<result column="ABOUT_ME" property="aboutMe"/>
+	<result column="MEMBER_NAME" property="memberName"/>
+	<result column="PHONE" property="phone"/>
+</resultMap>
+
+
+<!--
+	*SELECT문일 경우
+	<select id="각 sql문들의 식별자" parameterType="전달받은 데이터의 타입 혹은 별칭(생략가능)"
+	 resultType="조회결과를 반환하고자 하는 자바타입"
+	 resultMap="조회결과를 뽑아서 매핑할 resultMap의 id">
+	 
+	 => parameterType 속성은 생략 가능하다.
+	 => select문은 반드시 resultType이나 resultMap으로 결과값에 대한 타입을 지정해야함
+	 
+	 * DML문의 경우 어차피 처리된 행의 갯수가 반환되기 때문에 생략가능한 것
+	 * ? 대신에 해당 SQL문에 전달된 객체로부터 값을 꺼낼 때 #{필드명}, #{변수명}, #[키값}
+-->
+
+<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+	SELECT *
+	FROM MEMBER
+	WHERE MEMBER_ID = #{memberId} <!-- 대부분 #방식 사용, preparestatement방식  -->
+		AND MEMBER_PWD = #{memberPwd} <!-- statement방식 사용  -->
+		AND STATUS = 'Y'
+		
+</select>
+
+<!-- 
+	* DML문일 경우
+	<insert id="식별자 parameterType="전달받은 자바타입">
+	
+	</insert>
+	
+	<update></update>
+	<delete></delete>
+
+	=> dml문은 처리된 행의 갯수를 반환하기 때문에 resultType이나 resultMap 생략 가능하다
+	
+ -->
+
+
+<insert id="insertMember" parameterType="member" >
+ 	INSERT INTO MEMBER
+	 	(MEMBER_ID,
+	 	MEMBER_PWD,
+	 	EMAIL,
+	 	MEMBER_NO,
+	 	ADDRESS,
+	 	GENDER,
+	 	ABOUT_ME,
+	 	MEMBER_NAME,
+	 	PHONE
+	 	)
+ 	VALUES(
+	 	#{memberId},
+	 	#{memberPwd},
+	 	#{email},
+	 	#{memberNo},
+	 	#{address},
+	 	#{gender},
+	 	#{aboutMe},
+	 	#{memberName},
+	 	#{phone}
+ 	)
+ </insert>
+ 
+ <update id="deleteMember" parameterType="member">
+ 	UPDATE MEMBER
+ 	SET STATUS = 'N'
+ 		WHERE MEMBER_ID = #{memberId}
+ 			AND MEMBER_PWD = #{memberPwd}
+ </update>
+
+ <select id="myPageMember" parameterType="member" >
+ 	SELECT MEMBER_ID, EMAIL, ADDRESS, ABOUTNE, MEMBER_NAME, PHONE
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID = #{memberId}	
+ </select>
+ 
+  <select id="idfind" parameterType="member" resultMap="memberResultSet">
+ 	SELECT *
+ 	FROM MEMBER
+ 	WHERE MEMBER_NAME = #{memberName}	
+ 	AND EMAIL = #{email}
+ 	AND PHONE = #{phone}
+ </select>
+
+	<select id="updatePwd" parameterType="member" resultMap="memberResultSet">
+ 	SELECT *
+ 	FROM MEMBER
+ 	WHERE MEMBER_ID= #{memberId}	
+ 	AND MEMBER_NAME = #{memberName}
+ 	AND EMAIL = #{email}
+   </select>
+
+	<update id="pwdUpdate" parameterType="member">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{memberPwd}
+			WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<select id="idCheck" parameterType="member" resultMap="memberResultSet" >
+	 	SELECT *
+ 		FROM MEMBER
+ 		WHERE MEMBER_ID= #{memberId}
+	</select>
+	
+	<update id="MemberUpdate" parameterType="member">
+		UPDATE MEMBER 
+		SET MEMBER_NAME = #{memberName},
+    	PHONE = #{phone},
+    	EMAIL = #{email},
+    	ADDRESS = #{address},
+    	ABOUT_ME = #{aboutMe}
+		WHERE MEMBER_ID = #{memberId}
+		
+	</update>
+	
+	<select id="getMemberById" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+ 		FROM MEMBER
+ 		WHERE MEMBER_ID= #{memberId}
+	</select>
+
+
+</mapper>

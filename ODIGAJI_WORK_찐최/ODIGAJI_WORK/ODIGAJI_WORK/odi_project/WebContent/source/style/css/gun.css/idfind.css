@@ -1,0 +1,202 @@
+/* Font Import */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SBAggroM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SBAggroL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'SBAggroM', Arial, sans-serif;
+    /* 변경된 폰트 적용 */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 페이지 헤더 스타일 */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* 메인 컨텐츠 스타일 */
+main {
+    padding: 10px;
+    background-color: rgb(178, 161, 237);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: auto;
+    width: 30%;
+
+    /* 원하는 높이로 조절 */
+}
+
+/* 탭 컨테이너 스타일 */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eeeeeec9;
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+/* 탭 스타일 */
+.tab {
+    text-decoration: none;
+    color: rgba(18, 17, 19, 0.89);
+    padding: 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    font-size: 25px;
+}
+
+/* 활성화된 탭 스타일 */
+.tab.active {
+    background-color: rgba(193, 193, 248, 0.961);
+    color: rgba(120, 97, 246, 0.899);
+}
+
+/* 탭 사이 구분 선 스타일 */
+.divider {
+    margin: 0 10px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    height: 100%;
+}
+
+/* 마지막 구분 선 제거 스타일 */
+.divider:last-child {
+    border: none;
+}
+
+/* 컨텐츠 영역 스타일 */
+.content {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 활성화된 컨텐츠 영역 스타일 */
+.content.active {
+    display: block;
+}
+
+/* 폼 그룹 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* 라벨 스타일 */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* 입력 필드 스타일 */
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: rgba(141, 133, 210, 0.557);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 버튼 호버 스타일 */
+button:hover {
+    background-color: #95adef;
+}
+
+/* 구분 선 스타일 */
+.divider {
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    /* 모달의 너비 */
+    height: 600px;
+    /* 모달의 높이 */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 85%;
+    border-radius: 8px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

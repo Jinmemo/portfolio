@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ImageMapper">
+
+	<!-- 우측바에 랜덤으로 이미지 가져오는 SQL -->
+	<select id="getRandomImagesByMemberAddress" resultType="odi_project.common.model.vo.Image">
+	<![CDATA[
+		SELECT 
+		    TRAVEL_NO TravelNo,
+		    RE_COUNT ReCount,
+            TRAVEL_NAME TravelName,
+            TRAVEL_ADDRESS TravelAddress,
+            SEASON Season,
+		    TRAVEL_IMG Image
+		FROM (
+		    SELECT 
+		        TF.TRAVEL_NO,
+		        TF.RE_COUNT,
+                TF.TRAVEL_NAME,
+                TF.TRAVEL_ADDRESS,
+                TF.SEASON,
+		        TA.TRAVEL_IMG,
+		        ROW_NUMBER() OVER (ORDER BY TF.RE_COUNT DESC) AS RNUM
+		    FROM 
+		        TRAVEL_FESTIVAL TF
+		    JOIN 
+		        MEMBER M ON SUBSTR(TF.TRAVEL_ADDRESS, 1, 2) = SUBSTR(#{memberAddress}, 9, 2) 
+		    JOIN
+		        TRAVEL_ATTACHMENT TA ON TF.TRAVEL_NO = TA.TRAVEL_NO
+		    WHERE 
+		        TF.STATUS = 'Y'
+		        AND ((TF.TRAVEL_SDATE <= CURRENT_DATE AND CURRENT_DATE <= TF.TRAVEL_EDATE) OR TF.TRAVEL_SDATE IS NULL)
+		) RankedTravel
+		WHERE RNUM = 1
+
+  	]]>
+	</select>
+
+
+	
+    <!-- 랜덤으로 이미지 가져오는 SQL -->
+	<select id="getRandomImages" resultType="odi_project.common.model.vo.Image">
+    <![CDATA[
+	SELECT *
+	FROM (
+        SELECT
+	        TF.TRAVEL_NO AS TravelNo,
+	        TF.RE_COUNT AS ReCount,
+	        TF.TRAVEL_NAME TravelName,
+	        TA.TRAVEL_IMG AS Image,
+	        ROW_NUMBER() OVER (ORDER BY DBMS_RANDOM.VALUE) AS RNUM
+	    FROM
+	        TRAVEL_FESTIVAL TF
+	    JOIN
+	        TRAVEL_ATTACHMENT TA ON TF.TRAVEL_NO = TA.TRAVEL_NO
+	    WHERE
+	        TF.STATUS = 'Y'
+	        AND ((TF.TRAVEL_SDATE <= CURRENT_DATE AND CURRENT_DATE <= TF.TRAVEL_EDATE) OR TF.TRAVEL_SDATE IS NULL)
+            	)
+	WHERE RNUM <= 4
+
+    ]]>
+    </select>
+	
+    <!-- 이미지와 조회수를 가져오는 SQL -->
+    <select id="getTopRankedImages" resultType="odi_project.common.model.vo.Image">
+    <![CDATA[
+	SELECT 
+	    TravelNo,
+	    ReCount,
+	    TravelName,
+	    Image
+	FROM (
+	    SELECT 
+	        TRAVEL_NO TravelNo,
+	        RE_COUNT ReCount,
+	        TRAVEL_NAME TravelName,
+	        TRAVEL_IMG Image,
+	        ROW_NUMBER() OVER (ORDER BY RE_COUNT DESC, TRAVEL_NO) AS RN
+	    FROM (
+	        SELECT 
+	            TF.TRAVEL_NO,
+	            TF.RE_COUNT,
+	            TF.TRAVEL_NAME,
+	            TA.TRAVEL_IMG,
+	            ROW_NUMBER() OVER (PARTITION BY TF.TRAVEL_NO ORDER BY TF.RE_COUNT DESC) AS RNUM
+	        FROM 
+	            TRAVEL_FESTIVAL TF
+	        JOIN 
+	            TRAVEL_ATTACHMENT TA ON TF.TRAVEL_NO = TA.TRAVEL_NO
+	        WHERE 
+	            (TF.TRAVEL_SDATE IS NULL OR (TF.TRAVEL_SDATE <= CURRENT_DATE AND CURRENT_DATE <= TF.TRAVEL_EDATE))
+	            -- 기타 조건들 추가 가능
+	    ) RankedTravel
+	    WHERE RNUM = 1
+	)
+	WHERE RN <= 4
+
+    ]]>
+    </select>
+
+</mapper>

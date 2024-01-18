@@ -1,0 +1,54 @@
+.container {
+    background-color: white;
+    max-width: 1900px;
+    height: 100%;
+    margin-top: 6.7%;
+    margin-left: 12.6%;
+}
+
+.mainthema {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: 900;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+table, th, tr,td {
+    border-bottom: 0.5px solid black;
+}
+
+.search-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+#keyword {
+    width: 400px;
+    height: 18px;
+}
+
+#searchbtn{
+    height: 25px;
+    background-color: rgb(163, 94, 163);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+
+.listarea , .paging-area{
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+thead {
+    font-weight: 700;
+}
+
+tbody tr{
+    text-align: center;
+}

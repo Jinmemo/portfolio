@@ -1,0 +1,223 @@
+/* 테이블  */
+.replyTable tr, td, th {
+	vertical-align: middle;
+	justify-content: center;
+	align-items: center;
+	font-family: 'SBAggroM';
+}
+
+.replyTable th {
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.replyTable * {
+	padding: 3px;
+}
+
+.replySubmitButton {
+	height: 40px;
+	width: 110px;
+	border: 1px solid #400040;
+	background-color: #400040;
+	color: white;
+	margin-left: 10px;
+	border-radius: 15px;
+	font-family: 'SBAggroM';
+}
+/*테이블 textarea  */
+.replyContent {
+	resize: none;
+	height: 80%;
+}
+
+/*테이블 수정.삭제버튼  */
+.replyButton {
+	font-family: 'SBAggroM';
+	background-color: #c0c0c0;
+	border: 0;
+	color: white;
+	border-radius: 10px;
+	width: 60px;
+	height: 25px;
+}
+
+.container {
+	margin-top: 6.7%;
+	margin-left: 12.6%;
+	margin-right: 12%;
+	background-color: white;
+}
+
+.title {
+	color: black;
+	font-size: 45px;
+	font-weight: 300;
+}
+
+
+.headinfo {
+	display: flex;
+	margin-top: 2%;
+	font-family: 'SBAggroM';
+	margin-left: 30px;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.headinfo .writer, .headinfo .createdate {
+	margin-right: 10px;
+}
+
+.createdate {
+	margin-left: 5%;
+}
+
+.head_title {
+	height: 100px;
+	display : flex;
+	align-items: center;
+}
+
+.content, .reply {
+	background-color: rgb(131, 71, 131);
+	color: white;
+	display: flex;
+	justify-content: center;
+	width: 100px;
+	border-radius: 15px; margin : 10px;
+	padding: 5px;
+	margin-left: 20px;
+	margin: 10px;
+}
+
+.content_view {
+	height: fit-content;
+	margin-left: 1%;
+	margin-right: 1%;
+	border-top: 1px solid rgb(131, 71, 131);
+	border-bottom: 1px solid rgb(131, 71, 131);
+	line-height: 20px;
+}
+
+.content_view p {
+	white-space: pre-line;
+	margin-top : 25px;
+	margin-bottom : 25px;
+	line-height: 2;
+	font-family: 'SBAggroL';
+	font-size : 16px;
+}
+
+.viewctn {
+	margin-left: 5%;
+}
+
+.boardCtrl {
+	display: flex;
+	margin-left: 55%;
+}
+
+.boardCtrl button {
+	font-family: 'SBAggroM';
+	background-color: #c0c0c0;
+	border: 0;
+	color: white;
+	border-radius: 10px;
+	width: 60px;
+	height: 25px;
+}
+
+.reply_view tr+tr {
+	margin-top: 2%;
+	border-top: 1px solid rgb(131, 71, 131);
+	font-size: 14px;
+}
+
+.reply_view {
+	height: fit-content;
+	max-height: 500px;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-bottom: 2%;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	border-top: 1px solid rgb(131, 71, 131);
+	border-bottom: 1px solid rgb(131, 71, 131);
+}
+
+.reply_view textarea {
+	resize: none;
+	height: 100%;
+	width: 500px;
+}
+/* 댓글수  */
+.replyCount {
+	border-radius: 50%; /* 100%가 아니라 50%로 수정 */
+	background-color: rgb(131, 71, 131);
+	color: white;
+	width: 18px;
+	height: 18px; /* width와 height를 동일하게 수정 */
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 13px;
+	margin-left: 6px;
+}
+
+.last {
+	margin-top: 2%;
+}
+
+.mainthema {
+	display: flex;
+	justify-content: center;
+	font-size: 50px;
+	font-weight: 900;
+	font-family: 'SBAggroB';
+	font-size: 40px;
+	color: rgb(101, 49, 101);
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.attachment {
+	margin-left: 65%;
+}
+
+/* 모달 스타일 */
+.modal { display:none; /* 처음에는 숨겨져 있음 */
+	position: fixed; /* 고정 위치 */
+	z-index: 1; /* 최상위에 배치 */
+	left: 0;
+	top: 0;
+	width: 100%; /* 전체 너비 */
+	height: 100%; /* 전체 높이 */
+	overflow: auto; /* 스크롤 가능하게 설정 */
+	background-color: rgba(0, 0, 0, 0.5); /* 약간의 투명한 검은색 배경 */
+}
+
+/* 모달 내용 */
+.modal-content {
+	background-color: #fefefe;
+	margin: 10% auto; /* 위에서 10% 내리고 가운데 정렬 */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%; /* 화면 크기에 따라 조절 가능 */
+}
+
+/* 닫기 버튼 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}

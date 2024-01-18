@@ -1,0 +1,118 @@
+/* 모달 스타일 */
+.modal {
+    z-index: 10;
+    display: none;
+    position: fixed;
+    top: 25%;
+    left:40%;
+    transform: translate(-10%, -10%);
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    width:600px;
+    height:auto;
+    border : 1px solid black;
+}
+
+/* 모달 내용 스타일 */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+    cursor: pointer;
+}
+
+/* 모달 창 tip 스타일 */
+.tip {
+    font-size:18px;
+    padding:15px;
+    background-color: lightgray;
+    border-radius: 8px;
+}
+
+/* 카테고리, 도시입력, 날짜 */
+.friend-category, .friend-city, .friend-calendar{
+    margin-top : 60px;
+}
+
+/* 카테고리 제목, 도시입력 제목, 날짜 */
+.friend-category>span, .friend-city>span, .friend-calendar>span:nth-of-type(1){
+    margin-right:50px;
+    font-size:25px;
+}
+
+/* 카테고리 옵션목록 */
+.friend-category>select{
+    font-size:15px;
+    font-family: 'SBAggroL';
+    padding : 5px;
+    margin-top:20px;
+}
+
+/* 도시입력 input 부분 */
+.friend-city-input{
+    margin-top:20px;
+    font-size : 15px;
+    padding : 10px;
+    width : 500px;
+}
+
+.friend-city-input >option{
+	font-family: 'SBAggroL';
+}
+
+/* 달력 스타일 */
+.datepicker {
+    display: inline-block;
+    margin-top:20px;
+}
+
+.datepicker input {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+/* 달력 사이에 '-' 부분 */
+.friend-calendar > span:nth-of-type(2){
+    font-size:10px;
+    margin-right:10px;
+}
+
+/* 필터해제 스타일 */
+.resetFilters{
+    background-color: white; 
+    color:red;
+    border:1px solid white;
+}
+
+/* 3개 버튼 정렬 설정 */
+.modal-content>article{
+    margin-top:60px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly
+}
+
+/* 3개 버튼 크기 설정 */
+.modal-content>article>input{
+    width:100px;
+    height: 30px;
+    font-family: 'SBAggroL';
+    cursor: pointer;
+    background-color: white;
+    font-size: 18px;
+}
+
+.modal-content>article>input:nth-of-type(2), .modal-content>article>input:nth-of-type(3){
+    border: 1px solid black;
+}
+
+
+/* 취소, 설정 버튼 hover 설정 */
+.modal-content>article>input:nth-of-type(2):hover, .modal-content>article>input:nth-of-type(3):hover{
+    background-color: #D0A9F5;
+}

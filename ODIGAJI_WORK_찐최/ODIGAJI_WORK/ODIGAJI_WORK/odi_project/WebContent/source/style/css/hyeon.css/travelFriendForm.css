@@ -1,0 +1,85 @@
+.outer{
+    font-family: 'SBAggroM';
+    margin: 120px auto 10px;
+    overflow: hidden;  /* 내용이 부모를 넘어가지 않게함 */
+    margin-left:450px;
+}
+
+/* 시작 날짜 선택요소 */
+.general-board-content input[type='date']:nth-of-type(1) {
+    padding: 8px;
+    margin-top: 20px;
+    margin-left: 90px;
+    margin-right:20px;
+    font-family: 'SBAggroL';
+}
+
+/* 종료 날짜 선택 요소 */
+.general-board-content input[type='date']:nth-of-type(2) {
+    padding: 8px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: 'SBAggroL';
+}
+
+/* 선호하는 나이 버튼 아래로 정렬 */
+.age-list{
+    vertical-align:bottom;
+}
+
+
+/* 선호하는 나이 정렬 */
+.age-list .radio-container {
+    display: flex;
+    align-items: center;
+}
+
+.age-list label:nth-of-type(1){
+    margin-left:85px;
+}
+
+/* 선호하는 나이 각 라벨 정렬 */
+.age-list label {
+    display: flex;
+    margin-left:10px;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+/* 라디오버튼 숨김 */
+.age-list input[type="radio"] {
+    display: none; 
+    
+}
+
+.age-list .custom-radio {
+    
+    width: 130px; 
+    height: 40px; 
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.age-list input[type="radio"]:checked + .custom-radio {
+    border-color: rgb(69, 69, 255); 
+}
+
+
+/* 선호하는 나이대 첫번째 버튼 */
+.general-board-content button[type='button']:nth-of-type(1){
+    margin-left: 90px;
+}
+
+
+.age-title, .maximum-number{
+    padding-top: 40px;
+}
+
+
+

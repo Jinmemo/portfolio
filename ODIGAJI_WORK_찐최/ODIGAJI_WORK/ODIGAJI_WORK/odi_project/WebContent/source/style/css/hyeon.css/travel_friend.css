@@ -1,0 +1,246 @@
+/* 오디가지(비행기아이콘) 부터 공통 */
+.main{
+    font-family: 'SBAggroM';
+    margin: 120px auto 10px;
+    overflow: hidden;  /* 내용이 부모를 넘어가지 않게함 */
+    margin-left:450px;
+}
+
+/* 각 목록에 대한 hover 이벤트 */
+.friend-list-container:hover{
+	cursor: pointer;
+}
+
+/* 여행동행 게시판 타이틀*/
+.travel-friend-main{
+    display: flex;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    margin-top: 20px;
+    margin-left:400px;
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.travel-friend-title{
+    display:flex;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+
+/* 글작성 스타일 */
+.writing{
+    margin-left: 930px;
+    font-size: 20px;
+    border : 1px solid black;
+    padding : 5px;
+    border-radius: 8px;
+}
+
+.writing:hover{
+    cursor: pointer;
+    background-color: yellow;
+}
+
+
+/* 여행동행 아이콘 크기 설정 */
+.travel-friend-icon{
+    width:40px;
+    height:auto;
+    margin-left:10px;
+}
+
+/* 여행동행 검색 */
+.travel-friend-search{
+    display:flex;
+    margin : 20px 0 0 0;
+}
+
+.search {
+    position: relative;
+}
+  
+/* 검색 바 스타일 */
+.search-bar {
+    width: 850px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    padding: 15px 0 15px 45px;
+    font-size: 15px;
+    background-color: rgb(236, 234, 234);
+}
+
+/* 검색 바의 검색 버튼 */
+.search-button{
+    font-family: 'SBAggroM';
+    width:60px;
+    margin-left:10px;
+    margin-right:10px;
+    background-color: #D0A9F5;
+    border-radius: 8px;
+    font-size: 13px;
+    border : 1px solid #bbb;
+}
+
+.search-entire {
+	font-family: 'SBAggroM';
+    width:80px;
+    background-color: #D0A9F5;
+    border-radius: 8px;
+    font-size: 13px;
+    border : 1px solid #bbb;
+}
+
+.search-button:hover{
+    background-color: #D0A9F5;
+    border : 2px solid #000000;
+}
+
+
+/* 검색바의 돋보기 아이콘 */
+.icon-search {
+    position : absolute;
+    width: 17px;
+    top: 15px;
+    margin-left:20px;
+    
+}
+
+
+/* 번개 아이콘 크기 설정 */
+.icon-light{
+    margin-left: 10px;
+    width:45px;
+    height:auto;
+}
+
+/* 하트 아이콘 크기 설정 */
+.icon-heart{
+    margin-left: 10px;
+    width:50px;
+    height:auto;
+}
+
+/* 목록 리스트 스타일 설정 */
+.icon-addlist{
+    margin-left: 10px;
+    width:50px;
+    height:auto;
+}
+
+/* 호버 시 포인터 커서를 나타내기 위한 스타일 추가 */
+.icon-light, .icon-heart {
+    cursor: pointer;
+}
+
+/* 게시글 목록 */
+.friend-list {
+    display: flex;
+    flex-direction: column;
+    width: 1150px; /* 너비 조절을 위해 임의의 값으로 설정 */
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  }
+  
+/* 목록리스트의 날짜 */
+.friend-list > div:nth-of-type(2) {
+    display: flex;
+    font-size: 13px;
+}
+
+/* 나이대만~ */
+.friend-header{
+    text-align: center;
+    line-height: normal;
+    width:50px;
+    background-color: rgb(240, 240, 213);
+    border: 1px solid rgb(240, 240, 213);
+    font-size:10px;
+    padding:3px;
+}
+
+.friend-header:empty {
+    display: none;
+}
+
+/* 예쁜 아이콘을 위해 Font Awesome을 사용합니다. */
+.icon-calendar::before {
+    content: '\f073'; /* Font Awesome의 calendar 아이콘 코드 */
+    font-family: 'Font Awesome 5 Free'; /* Font Awesome의 아이콘 폰트 사용 */
+    margin-right: 5px;
+}
+
+
+/* 목록리스트 지역 */
+.friend-list>div:nth-of-type(2){
+    font-family: 'SBAggroM';
+    margin : 10px 0 20px 0;
+    height:20px
+}
+
+/* 목록리스트 지역 (한글만 아이콘 제외) */
+.friend-list>div:nth-of-type(2)>span{
+    line-height: 20px;
+}
+
+/* 목록리스트 제목 */
+.friend-list>span:nth-of-type(1){
+    font-size:20px;
+
+}
+
+
+/* 목록리스트 내용 */
+.friend-list>span:nth-of-type(2){
+    margin-top: 10px;
+    color : rgb(151, 150, 150);
+    font-family: 'SBAggroL';
+}
+
+/* 리스트 목록의 location 이미지 */
+.list-img{
+    width:20px;
+    margin-right:10px;
+}
+
+
+/* ---------- 내용이 일정 글자를 넘기면 ...으로 변하도록 표시 ---------- */
+.friend-content {
+	white-space: nowrap;         /* 줄 바꿈 방지 */
+    overflow: hidden;            /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis;     /* 넘치는 부분을 ...으로 표시 */
+    max-width: 1000px;            /* 최대 너비 설정 (원하는 값으로 조절) */
+    display: inline-block;       /* 인라인 블록 요소로 표시 */
+}
+
+
+.travel-friend-search {
+  position: sticky;
+  top: 0;
+  background-color: white; /* 고정되는 부분의 배경색 설정 */
+  z-index: 7; /* 다른 요소 위에 나타나도록 z-index 설정 */
+/*     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.travel-friend-title {
+  margin-top: 100px; /* travel-friend-title 위에 여백을 확보하기 위한 값으로 조절 */
+}
+
+form.friend-list-container {
+  max-height: 800px; /* 스크롤이 발생하는 기준 높이, 필요에 따라 조절 */
+  overflow-y: auto;
+  margin-top: 20px; /* 필요에 따라 조절 */
+  max-width: 1300px;
+}
+
+.friend-list {
+/*     border: 1px solid #ddd; /* 목록 사이의 경계선 추가, 필요에 따라 조절 */
+  padding: 10px; /* 목록 내부 여백, 필요에 따라 조절 */
+  margin-bottom: 10px; /* 목록 간의 간격, 필요에 따라 조절 */
+}
+  
+  

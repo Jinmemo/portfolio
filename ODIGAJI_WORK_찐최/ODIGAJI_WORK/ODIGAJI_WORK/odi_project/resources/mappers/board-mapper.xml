@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper"> <!-- namespace : 현재 mapper의 고유한 별칭  -->
+
+	<!-- 동행게시판 게시글 불러오기 -->
+	<resultMap type="travelFriendBoard" id="travelFriendBoardRm">
+		<id property="fboardNo" column="FBOARD_NO"/>
+		<result property="friendTitle" column="FRIEND_TITLE"/>
+		<result property="friendContent" column="FRIEND_CONTENT"/>
+		<result property="friendCategory" column="FRIEND_CATEGORY"/>
+		<result property="friendAddress" column="FRIEND_ADDRESS" />
+		<result property="friendStartDate" column="FRIEND_START_DATE" />
+		<result property="friendEndDate" column="FRIEND_END_DATE" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="preAgeGroup" column="PRE_AGE_GROUP" />
+    </resultMap>
+    
+    <!-- 동행게시판 상세페이지 불러오기 -->
+	<resultMap type="travelFriendCategory" id="travelFriendCategoryRm">
+	    <id property="fboardNo" column="FBOARD_NO"/>
+	    <result property="friendTitle" column="FRIEND_TITLE"/>
+	    <result property="friendContent" column="FRIEND_CONTENT"/>
+	    <result property="friendCategory" column="FRIEND_CATEGORY"/>
+	    <result property="friendAddress" column="FRIEND_ADDRESS" />
+	    <result property="friendStartDate" column="FRIEND_START_DATE" />
+	    <result property="friendEndDate" column="FRIEND_END_DATE" />
+	    <result property="memberId" column="MEMBER_ID" />
+	    <result property="preAgeGroup" column="PRE_AGE_GROUP" />
+	    <result property="categoryName" column="CATEGORY_NAME" />
+	    <result property="memberName" column="MEMBER_NAME" />
+	    <collection property="list" javaType="java.util.ArrayList" ofType="friendReply"
+					select="selectFriendResultList" column="FBOARD_NO" />
+	</resultMap>
+	
+	<!-- 동행게시판 댓글 불러오기 -->
+	<resultMap type="friendReply" id="replyFriendResultSet">
+		<result property="memberId" column="MEMBER_ID"/>
+	</resultMap>
+	
+	<resultMap id="travelFriendCategoryResultSet" type="travelFriendCategory">
+		<id column="FBOARD_NO" property="fboardNo" />
+
+		<collection property="list" javaType="java.util.ArrayList" ofType="friendReply"
+					select="selectFriendResultList" column="FBOARD_NO" />
+	</resultMap>
+	
+
+	
+	<!-- 동행게시판 게시글 작성할 때 카테고리 불러오기 -->
+	<select id="selectFriendCategoryList" resultType="category">
+		SELECT CATEGORY_NO, CATEGORY_NAME
+		FROM FRIEND_CATEGORY
+	</select>
+	
+	<!-- 동행 게시판 게시글 추가 -->
+	<!-- DB에 그대로 DATE 타입으로 저장하기 위해 이와같이 저장 -->
+	<insert id="insertFriendList"  parameterType="map" >
+	    INSERT INTO FRIEND (FBOARD_NO, FRIEND_TITLE, FRIEND_CONTENT, FRIEND_CATEGORY, FRIEND_ADDRESS,
+	       FRIEND_START_DATE, FRIEND_END_DATE, CREATE_DATE, STATUS, MEMBER_ID, PRE_AGE_GROUP)
+	    VALUES (FRIEND_SEQ.NEXTVAL, #{friendTitle}, #{friendContent}, #{friendCategory}, #{friendAddress},
+	        #{friendStartDate, jdbcType=TIMESTAMP}, #{friendEndDate, jdbcType=TIMESTAMP}, SYSDATE, 'Y', #{memberId} ,#{preAgeGroup})
+	</insert>
+
+	
+	<!-- 동행게시판 검색 기능, 동적 SQL문 -->
+	<select id="selectSearchFriendList" resultType="travelFriendBoard" parameterType='hashmap'>
+		SELECT FBOARD_NO, FRIEND_TITLE, FRIEND_CONTENT, FRIEND_CATEGORY ,FRIEND_ADDRESS, FRIEND_START_DATE, FRIEND_END_DATE, F.MEMBER_ID, PRE_AGE_GROUP
+		FROM FRIEND F
+		LEFT JOIN MEMBER M ON (F.MEMBER_ID = M.MEMBER_ID)
+		WHERE F.STATUS = 'Y'
+		AND (FRIEND_TITLE LIKE '%' || '${keyword}' || '%'
+		OR FRIEND_CONTENT LIKE '%' || '${keyword}' || '%'
+		OR FRIEND_ADDRESS LIKE '%' || '${keyword}' || '%'
+		OR FRIEND_START_DATE LIKE '%' || '${keyword}' || '%'
+		OR FRIEND_END_DATE LIKE '%' || '${keyword}' || '%'
+		OR PRE_AGE_GROUP LIKE '%' || '${keyword}' || '%')
+		ORDER BY FBOARD_NO DESC
+	</select>
+	
+	
+	<!-- 동행게시판 모달 검색 리스트 -->
+	<select id="selectSearchModalList" resultType="travelFriendBoard" parameterType='hashmap'>
+		SELECT FBOARD_NO, FRIEND_TITLE, FRIEND_CONTENT, FRIEND_CATEGORY ,FRIEND_ADDRESS, FRIEND_START_DATE, FRIEND_END_DATE, F.MEMBER_ID, PRE_AGE_GROUP
+		FROM FRIEND F
+		LEFT JOIN MEMBER M ON (F.MEMBER_ID = M.MEMBER_ID)
+		WHERE F.STATUS = 'Y'
+	     <if test="category != null and category != '선택안함'">
+	      AND FRIEND_CATEGORY = #{category}
+	    </if>
+ 	    <if test="city != null and city != '선택안함'">
+	      AND FRIEND_ADDRESS = #{city}
+	    </if> 
+	    <if test="startDate != ''  and endDate != '' ">
+	      AND ((FRIEND_START_DATE BETWEEN #{startDate} AND #{endDate})
+	        OR (FRIEND_END_DATE BETWEEN #{startDate} AND #{endDate}))
+	    </if> 
+	   ORDER BY FBOARD_NO DESC
+	</select>
+	
+	
+
+	
+	<!-- 동행게시판 상세페이지 -->
+	<select id="friendDetailView" parameterType="int" resultMap="travelFriendCategoryRm">
+		SELECT FBOARD_NO, FRIEND_TITLE, FRIEND_CONTENT, FRIEND_CATEGORY ,FRIEND_ADDRESS, FRIEND_START_DATE, FRIEND_END_DATE, F.MEMBER_ID, PRE_AGE_GROUP, C.CATEGORY_NAME, M.MEMBER_NAME
+		FROM FRIEND F
+		JOIN MEMBER M ON (F.MEMBER_ID = M.MEMBER_ID)
+		JOIN FRIEND_CATEGORY C ON (F.FRIEND_CATEGORY = C.CATEGORY_NO)
+		WHERE FBOARD_NO = #{fboardNo} AND F.STATUS = 'Y'
+	</select>
+	
+	<!-- 동행게시판 수정페이지 -->
+	<update id="updateFriendBoard" parameterType="map">
+		UPDATE FRIEND
+		   SET FRIEND_TITLE = #{friendTitle},
+		       FRIEND_CONTENT = #{friendContent},
+		       FRIEND_CATEGORY = #{friendCategory},
+		       FRIEND_ADDRESS = #{friendAddress},
+		       FRIEND_START_DATE = #{friendStartDate},
+		       FRIEND_END_DATE = #{friendEndDate},
+		       PRE_AGE_GROUP = #{preAgeGroup},
+		       CREATE_DATE = SYSDATE
+		 WHERE FBOARD_NO = #{fboardNo}      
+	</update>
+	
+	<!-- 동행게시판 삭제페이지 -->
+	<update id="deleteFriendBoard" parameterType="map">
+		UPDATE FRIEND
+		   SET STATUS = 'N'
+		 WHERE FBOARD_NO = #{fboardNo} 
+	</update>
+	
+	
+	<!-- 동행게시판 댓글 추가 -->
+	<insert id="friendInsertReply" parameterType="friendReply">
+		INSERT INTO FRIEND_REPLY(REPLY_NO, REPLY_CONTENT, CREATE_DATE, SECRET_REPLY, STATUS, MEMBER_ID, FBOARD_NO, MEMBER_NAME)
+		VALUES (FRIEND_REPLY_SEQ.NEXTVAL, #{replyContent}, SYSDATE, #{secretReply}, 'Y', #{memberId}, #{fboardNo}, #{memberName})
+	</insert>
+	
+	
+	
+	
+	<!-- 동행게시판 댓글 불러오기 --><!-- resultMap="replyFriendResultSet" -->
+	<select id="selectFriendResultList" parameterType="_int" resultMap="replyFriendResultSet">
+		SELECT R.REPLY_NO, R.REPLY_CONTENT, R.CREATE_DATE, R.SECRET_REPLY, R.MEMBER_ID, R.FBOARD_NO, R.MEMBER_NAME
+		FROM FRIEND_REPLY R JOIN MEMBER B ON R.MEMBER_ID = B.MEMBER_ID
+		WHERE FBOARD_NO = #{fboardNo} AND R.STATUS = 'Y'
+		ORDER BY R.REPLY_NO DESC
+	</select>
+	
+
+
+	<!-- 동행게시판 friendWith 불러오기 -->
+	<resultMap type="friendWith" id="friendWithRm">
+	    <id property="withNo" column="WITH_NO"/>
+	    <result property="fboardNo" column="FBOARD_NO"/>
+	    <result property="memberId" column="MEMBER_ID"/>
+	    <result property="memberName" column="MEMBER_NAME"/>
+	    <result property="memberNo" column="MEMBER_NO" />
+	    <result property="aboutMe" column="ABOUT_ME" />
+	    <result property="friendTitle" column="FRIEND_TITLE" />
+	    <result property="gender" column="GENDER" />
+	    <collection property="withList" javaType="java.util.ArrayList" ofType="friendWith"
+					select="selectMyPageAccept" column="FBOANRD_NO" />
+	</resultMap>
+	
+	<resultMap type="friendWith" id="friendWithRm2">
+	    <result property="memberId" column="MEMBER_ID"/>
+	    <result property="memberName" column="MEMBER_NAME"/>
+	    <result property="memberNo" column="MEMBER_NO" />
+	    <result property="aboutMe" column="ABOUT_ME" />
+	    <result property="gender" column="GENDER" />
+	</resultMap>
+
+	<!-- 동행게시판 동행 수락 -->
+	<insert id="insertFriendWith" parameterType="map">
+		INSERT INTO FRIEND_WITH(WITH_NO, FBOARD_NO, MEMBER_ID, STATUS, ACCEPT, MEMBER_NAME, MEMBER_NO, ABOUT_ME, FRIEND_TITLE, GENDER)
+		VALUES (FRIEND_WITH_SEQ.NEXTVAL, #{fboardNo}, #{memberId}, 'Y', 'N', #{memberName}, #{memberNo}, #{aboutMe}, #{friendTitle}, #{gender})
+	</insert>
+
+	<!-- 동행게시판 동행 취소 -->
+	<delete id="deleteFriendWith"  parameterType="friendWith">
+		DELETE FROM FRIEND_WITH
+		WHERE FBOARD_NO = #{fboardNo} AND MEMBER_ID = #{memberId}
+	</delete>
+
+	<!-- 동행게시판 동행 수락/취소 버튼 세션 유지 -->
+	<select id="checkCompanionStatus" parameterType="map" resultType="java.lang.String">
+	    SELECT STATUS
+	    FROM FRIEND_WITH
+	    WHERE FBOARD_NO = #{fboardNo} AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- 마이페이지 동행 수락 대기 -->
+	<select id="selectMyPageAccept" parameterType="String"  resultMap="friendWithRm">
+		SELECT W.WITH_NO, W.FBOARD_NO, W.MEMBER_ID, W.MEMBER_NAME, W.MEMBER_NO, W.ABOUT_ME, W.FRIEND_TITLE, W.GENDER
+		FROM FRIEND_WITH W
+		JOIN FRIEND F ON (W.FBOARD_NO = F.FBOARD_NO)
+		WHERE F.MEMBER_ID = #{memberId} AND ACCEPT = 'N'
+	</select>
+	
+	<!-- 동행게시판 댓글 수정 -->
+	<update id="updateFriendReply" parameterType="map">
+		UPDATE FRIEND_REPLY
+		   SET REPLY_CONTENT = #{replyContent}
+		 WHERE STATUS = 'Y' AND REPLY_NO = #{replyNo}
+	</update>
+	
+	
+	<!-- 동행게시판 댓글 삭제 -->
+	<update id="deleteFriendReply" parameterType="map">
+		UPDATE FRIEND_REPLY
+		   SET STATUS = 'N'
+		 WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<!-- 마이페이지 동행 수락 -->
+	<update id="updateMyPageAccept" parameterType="map">
+		UPDATE FRIEND_WITH
+		   SET ACCEPT = 'Y'
+		 WHERE WITH_NO = #{withNo}
+	</update>
+	
+	<!-- 마이페이지 동행 취소 -->
+	<delete id="deleteMyPageAccept" parameterType="friendWith">
+		DELETE FROM FRIEND_WITH
+		WHERE WITH_NO = #{withNo}
+	</delete>
+	
+	
+	<!-- 다른 사용자 마이페이지 -->
+	<select id="selectOtherMembersMyPage" resultType="friendWith">
+		SELECT W.MEMBER_ID, W.MEMBER_NAME, W.MEMBER_NO, W.ABOUT_ME, W.GENDER
+		FROM FRIEND_WITH W
+		JOIN FRIEND F ON (W.FBOARD_NO = F.FBOARD_NO)
+		WHERE W.MEMBER_ID = #{memberId} 
+	</select>
+	
+	<select id="selectAcceptList" resultType="friendWith">
+		SELECT W.MEMBER_ID, W.MEMBER_NAME
+		FROM FRIEND_WITH W
+		JOIN FRIEND F ON (W.FBOARD_NO = F.FBOARD_NO)
+		WHERE F.FBOARD_NO = #{fboardNo} AND ACCEPT = 'Y'
+	</select>
+		
+		
+		
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡ 여행-축제 ㅡㅡㅡㅡㅡㅡㅡㅡ -->
+		
+	<!-- 여행-축제용 resultmap  -->
+	<resultMap type="travelFestival" id="travelFestivalRm">
+		<id column="TRAVEL_NO" property="travelNo"/>
+		<result column="TRAVEL_NAME" property="travelName"/>
+		<result column="TRAVEL_CONTENT" property="travelContent"/>
+		<collection property="travelImg" javaType="arrayList" ofType="string" column="TRAVEL_NO" select="selectTravelImg" />
+	</resultMap>
+	
+	
+	<!-- 여행-축제 이미지 가져오기  -->
+	<select id = "selectTravelImg" resultType="string">
+		SELECT TRAVEL_IMG 
+		FROM TRAVEL_ATTACHMENT
+		WHERE TRAVEL_NO = #{travelNo}
+	</select>
+	
+	
+	<!--여행-축제 게시글 갯수 세기  -->
+	<select id="selectTravelListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TRAVEL_FESTIVAL
+		WHERE STATUS='Y'
+	</select>
+	<!--여행-축제 게시글 가지고오기  -->
+	<select id="selectTravelList" resultMap="travelFestivalRm">
+		SELECT TF.TRAVEL_NO, TRAVEL_NAME, TRAVEL_CONTENT
+		FROM TRAVEL_FESTIVAL TF
+		WHERE STATUS='Y' 
+		ORDER BY TRAVEL_NO DESC
+	</select>
+	
+	
+	<!-- 여행-축제 검색기능  -->
+	<select id="searchTraveList" resultMap="travelFestivalRm" parameterType="hashmap">
+		SELECT TRAVEL_NO, TRAVEL_NAME, TRAVEL_CONTENT
+		FROM TRAVEL_FESTIVAL
+		WHERE STATUS='Y'
+			<if test="condition =='title'">
+				AND TRAVEL_NAME
+			</if>
+			<if test="condition =='content'">
+				AND TRAVEL_CONTENT
+			</if> 
+			LIKE '%' ||  '${keyword}'  || '%' 
+		ORDER BY TRAVEL_NO DESC
+	</select>
+	<!-- 여행-축제 검색결과 게시글 세기 -->
+	<select id="searchTravelListCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM TRAVEL_FESTIVAL
+		WHERE STATUS='Y'
+			<if test="condition =='title'">
+				AND TRAVEL_NAME
+			</if>
+			<if test="condition =='content'">
+				AND TRAVEL_CONTENT
+			</if> 
+			LIKE '%' ||  '${keyword}'  || '%' 
+	</select>
+
+
+	<!-- 여행-축제 카테고리 선택 시 게시글 출력 -->
+	<select id="travelCategoryClick" resultMap="travelFestivalRm" parameterType="java.util.List">
+	    SELECT TF.TRAVEL_NO, TRAVEL_NAME, TRAVEL_CONTENT
+	    FROM TRAVEL_FESTIVAL TF
+	    WHERE STATUS='Y'
+	    AND (
+	        <foreach item="keyword" collection="collection" separator=" AND " open="(" close=")">
+	            (
+	                SEASON LIKE '%' || #{keyword} || '%'
+	                OR THEME LIKE '%' || #{keyword} || '%'
+	                OR REGION LIKE '%' || #{keyword} || '%'
+	            )
+	        </foreach>
+	    )
+	    ORDER BY TRAVEL_NO DESC
+	</select>
+
+	<!--여행-축제 카테고리 선택 시 게시글 세기 -->	
+	<select id="travelCategoryClickListCount" parameterType="java.util.List" resultType="int">
+	    SELECT COUNT(*)
+	    FROM TRAVEL_FESTIVAL TF
+	    WHERE STATUS='Y'
+	    <foreach item="keyword" collection="collection" open="AND (" separator=" OR " close=")">
+	        SEASON LIKE '%' || #{keyword} || '%'
+	        OR THEME LIKE '%' || #{keyword} || '%'
+	        OR REGION LIKE '%' || #{keyword} || '%'
+	    </foreach>
+	    ORDER BY TRAVEL_NO DESC
+	</select> 
+			
+		
+		
+	<!-- 여행-축제 상세보기 페이지  -->
+	<select id="travelFestivalDetailView" parameterType="_int"  resultMap="travelFestivalRm">
+		SELECT TRAVEL_NO, TRAVEL_NAME, TRAVEL_SDATE, TRAVEL_EDATE, TRAVEL_CONTENT, TRAVEL_ADDRESS, TYPE_TF, RE_COUNT, EDIT_DATE, THEME
+		FROM TRAVEL_FESTIVAL
+		WHERE STATUS='Y'
+			AND TRAVEL_NO = #{travelNo}
+	</select>
+		
+
+	<!-- 여행-축제 조회수 증가  -->	
+	<update id="tfincreaseCount" parameterType="_int">
+	 	UPDATE TRAVEL_FESTIVAL
+	 	SET RE_COUNT = RE_COUNT + 1
+	 	WHERE TRAVEL_NO = #{travelNo}
+	</update>		
+		
+		
+		
+		
+			
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡ 식당-카페 ㅡㅡㅡㅡㅡㅡㅡㅡ -->	
+	
+	<!-- 식당-카페용 resultmap  -->
+	<resultMap type="dinnerCafe" id="dinnerCafeRm">
+		<id column="DINNER_NO" property="dinnerNo"/>
+		<result column="DINNER_NAME" property="dinnerName"/>
+		<result column="DINNER_CONTENT" property="dinnerContent"/>
+		<collection property="dinnerImg" javaType="arrayList" ofType="string" column="DINNER_NO" select="selectDinnerImg" />
+	</resultMap>
+	
+	
+	<!-- 식당-카페 이미지 가져오기  -->
+	<select id = "selectDinnerImg" resultType="string">
+		SELECT DINNER_IMG 
+		FROM DINNER_ATTACHMENT
+		WHERE DINNER_NO = #{dinnerNo}
+	</select>
+	
+	
+	<!--식당-카페 게시글 갯수 세기  -->
+	<select id="selectDinnerListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM DINNER_CAFE
+		WHERE STATUS='Y'
+	</select>
+	
+	<!--식당-카페 게시글 가지고오기  -->
+	<select id="selectDinnerList" resultMap="dinnerCafeRm">
+		SELECT DC.DINNER_NO, DINNER_NAME, DINNER_CONTENT
+		FROM DINNER_CAFE DC
+		WHERE STATUS='Y' 
+		ORDER BY DINNER_NO DESC
+	</select>
+
+
+	<!-- 식당-카페 검색기능 -->
+	<select id="searchDinnerList" resultMap="dinnerCafeRm"
+		parameterType="hashmap">
+		SELECT DINNER_NO, DINNER_NAME, DINNER_CONTENT
+		FROM DINNER_CAFE
+		WHERE STATUS='Y'
+		<if test="condition =='title'">
+			AND DINNER_NAME
+		</if>
+		<if test="condition =='content'">
+			AND DINNER_CONTENT
+		</if>
+		LIKE '%' || '${keyword}' || '%'
+		ORDER BY DINNER_NO DESC
+	</select>
+	
+	<!-- 식당-카페 검색결과 게시글 세기 -->
+	<select id="searchDinnerListCount" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM DINNER_CAFE
+		WHERE STATUS='Y'
+		<if test="condition =='title'">
+			AND DINNER_NAME
+		</if>
+		<if test="condition =='content'">
+			AND DINNER_CONTENT
+		</if>
+		LIKE '%' || '${keyword}' || '%'
+	</select>
+		
+		
+	<!-- 식당-카페 카테고리 선택 시 게시글 출력 -->
+	<select id="dinnerCategoryClick" resultMap="dinnerCafeRm" parameterType="java.util.List">
+	    SELECT DINNER_NO, DINNER_NAME, DINNER_CONTENT
+	    FROM DINNER_CAFE
+	    WHERE STATUS='Y'
+	    AND (
+	        <foreach item="keyword" collection="collection" separator=" AND " open="(" close=")">
+	            (
+	                CATEGORY LIKE '%' || #{keyword} || '%'
+	                OR REGION LIKE '%' || #{keyword} || '%'
+	            )
+	        </foreach>
+	    )
+	    ORDER BY DINNER_NO DESC
+	</select>
+
+	<!--식당-카페 카테고리 선택 시 게시글 세기 -->	
+	<select id="dinnerCategoryClickListCount" parameterType="java.util.List" resultType="int">
+	    SELECT COUNT(*)
+	    FROM DINNER_CAFE
+	    WHERE STATUS='Y'
+	    <foreach item="keyword" collection="collection" open="AND (" separator=" OR " close=")">
+	        CATEGORY LIKE '%' || #{keyword} || '%'
+	        OR REGION LIKE '%' || #{keyword} || '%'
+	    </foreach>
+	    ORDER BY DINNER_NO DESC
+	</select> 		
+			
+			
+		
+	<!-- 식당-카페 상세보기 페이지  -->
+	<select id="dinnerCafeDetailView" parameterType="int"  resultMap="dinnerCafeRm">
+		SELECT DINNER_NO, DINNER_NAME, DINNER_START_TIME, DINNER_END_TIME, DINNER_CONTENT, DINNER_ADDRESS, RE_COUNT, DINNER_STORE_PHONE, DINNER_GRADE, EDIT_DATE
+		FROM DINNER_CAFE
+		WHERE STATUS='Y'
+			AND DINNER_NO = #{dinnerNo}
+	</select>
+		
+
+	<!-- 식당-카페 조회수 증가  -->	
+	<update id="dcIncreaseCount" parameterType="int">
+	 	UPDATE DINNER_CAFE
+	 	SET RE_COUNT = RE_COUNT + 1
+	 	WHERE DINNER_NO = #{dinnerNo}
+	</update>		
+		
+				
+			
+			
+	
+	
+	<!-- 장현진 -->
+
+	<!-- 일반게시판/댓글 resultset -->
+	<resultMap id="replyResultSet" type="reply">
+		<result column="MEMBER_ID" property="memberId" />
+	</resultMap>
+	<resultMap id="boardResultSet" type='board'>
+		<id column="BOARD_NO" property="boardNo" />
+
+		<collection property="list" javaType="java.util.ArrayList"
+			ofType="reply" select="selectReplyList" column="BOARD_NO" />
+
+	</resultMap>
+
+
+	<!-- 일반/공지게시판 조회수 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+		BOARD
+		WHERE STATUS = 'Y' AND CATEGORY_NO = 'B4'
+	</select>
+
+	<!-- 일반/공지게시판 view -->
+	<select id="selectList" resultType="board">
+		SELECT
+		B.BOARD_NO,
+		C.CATEGORY_NAME,
+		B.BOARD_TITLE,
+		M.MEMBER_ID,
+		B.COUNT,
+		B.CREATE_DATE
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M ON B.MEMBER_ID = M.MEMBER_ID
+		JOIN
+		BOARD_CATEGORY C
+		ON B.CATEGORY_NO = C.CATEGORY_NO
+		WHERE
+		B.STATUS = 'Y'
+		AND B.BOARD_TYPE =
+		1
+		AND B.CATEGORY_NO
+		LIKE '%B%'
+		ORDER BY
+		B.BOARD_NO DESC
+	</select>
+
+	<select id="noticeSelectList" resultType="board">
+		SELECT
+		B.BOARD_NO,
+		B.BOARD_TITLE,
+		M.MEMBER_ID,
+		B.COUNT,
+		B.CREATE_DATE
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M
+		ON B.MEMBER_ID = M.MEMBER_ID
+		WHERE
+		B.STATUS = 'Y'
+		AND B.BOARD_TYPE = 2
+		ORDER BY
+		B.BOARD_NO DESC
+	</select>
+
+	<!-- 일반게시판 검색 -->
+	<select id="searchList" resultType="board">
+		SELECT
+		B.BOARD_NO,
+		C.CATEGORY_NAME,
+		B.BOARD_TITLE,
+		M.MEMBER_ID,
+		B.COUNT,
+		B.CREATE_DATE
+		FROM
+		BOARD B
+		JOIN
+		MEMBER M ON B.MEMBER_ID = M.MEMBER_ID
+		JOIN
+		BOARD_CATEGORY C ON B.CATEGORY_NO = C.CATEGORY_NO
+		WHERE
+		B.STATUS = 'Y'
+		<if test="condition == 'title'">
+			AND B.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="condition == 'content'">
+			AND B.BOARD_CONTENT LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="condition == 'writer'">
+			AND B.MEMBER_ID LIKE '%' || #{keyword} || '%'
+		</if>
+		ORDER BY
+		B.BOARD_NO DESC
+	</select>
+
+	<select id="commonsearchlist" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y'
+		<if test="condition == 'title'">
+			AND BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="condition == 'content'">
+			AND BOARD_CONTENT LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="condition == 'writer'">
+			AND MEMBER_ID LIKE '%' || #{keyword} || '%'
+		</if>
+	</select>
+
+
+	<!-- 일반/공지게시판 조회수 증가 -->
+	<update id="increaseCount" parameterType="_int">
+		UPDATE BOARD
+		SET COUNT =
+		COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+		AND STATUS = 'Y'
+	</update>
+
+	<!-- 일반/공지게시판 detailview -->
+	<select id="selectBoard" parameterType="_int"
+		resultMap="boardResultSet">
+		SELECT B.BOARD_NO, C.CATEGORY_NAME, B.BOARD_TITLE,
+		M.MEMBER_ID,
+		B.CREATE_DATE, B.COUNT,
+		B.BOARD_CONTENT
+		FROM BOARD B
+		JOIN
+		MEMBER M ON
+		B.MEMBER_ID = M.MEMBER_ID
+		JOIN
+		BOARD_CATEGORY C ON
+		B.CATEGORY_NO =
+		C.CATEGORY_NO
+		WHERE BOARD_NO = #{boardNo}
+		AND B.STATUS =
+		'Y'
+	</select>
+
+	<select id="noticeSelectBoard" parameterType="_int"
+		resultMap="boardResultSet">
+		SELECT B.BOARD_NO, B.BOARD_TITLE,
+		M.MEMBER_ID,
+		B.CREATE_DATE,
+		B.COUNT,
+		B.BOARD_CONTENT
+		FROM BOARD B
+		JOIN
+		MEMBER M ON
+		B.MEMBER_ID =
+		M.MEMBER_ID
+		WHERE BOARD_NO = #{boardNo}
+		AND B.STATUS =
+		'Y'
+	</select>
+
+	<!-- 일반/공지게시판 게시글추가 -->
+	<insert id="insertBoard" parameterType="board">
+		INSERT INTO BOARD
+		(BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_TYPE, CATEGORY_TYPE,
+		MEMBER_ID, CATEGORY_NO)
+		VALUES (BOARD_SEQ.NEXTVAL, #{boardTitle},
+		#{boardContent},1,#{categoryType}, #{memberId}, #{categoryNo})
+	</insert>
+
+	<insert id="noticeInsert" parameterType="board">
+		INSERT INTO BOARD
+		(BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_TYPE,
+		MEMBER_ID)
+		VALUES
+		(BOARD_SEQ.NEXTVAL, #{boardTitle},
+		#{boardContent},2, #{memberId})
+	</insert>
+
+	<!-- 일반게시글 수정 -->
+	<update id="updateBoard" parameterType="board">
+		UPDATE BOARD
+		SET
+		BOARD_TITLE = #{boardTitle}
+		,BOARD_CONTENT = #{boardContent}
+		WHERE
+		BOARD_NO = #{boardNo}
+	</update>
+
+	<update id="noticeUpdateBoard" parameterType="board">
+		UPDATE BOARD
+		SET
+		BOARD_TITLE = #{boardTitle}
+		,BOARD_CONTENT = #{boardContent}
+		WHERE
+		BOARD_NO = #{boardNo}
+	</update>
+
+	<update id="deleteBoard" parameterType="board">
+		UPDATE BOARD
+		SET STATUS =
+		'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+
+	<update id="noticeDeleteBoard" parameterType="board">
+		UPDATE BOARD
+		SET
+		STATUS =
+		'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+
+	<!-- 일반/공지게시판 댓글 view -->
+	<select id="selectReplyList" parameterType="_int"
+		resultMap="replyResultSet">
+		SELECT R.REPLY_NO,R.BOARD_NO,R.MEMBER_ID, R.REPLY_CONTENT,
+		R.CREATE_DATE
+		FROM REPLY R
+		JOIN BOARD B ON B.BOARD_NO = R.BOARD_NO
+		WHERE
+		R.BOARD_NO = #{boardNo}
+		AND R.STATUS = 'Y'
+		ORDER BY REPLY_NO DESC
+	</select>
+
+	<!-- 일반/공지게시판 댓글등록 -->
+	<insert id="insertReply" parameterType="reply">
+		INSERT INTO REPLY
+		(REPLY_NO, BOARD_NO, CREATE_DATE, REPLY_CONTENT, STATUS,
+		MEMBER_ID)
+		VALUES (reply_seq.nextval, #{boardNo}, SYSDATE,
+		#{replyContent}, 'Y',
+		#{memberId})
+	</insert>
+
+	<insert id="noticeInsertReply" parameterType="reply">
+		INSERT INTO REPLY
+		(REPLY_NO, BOARD_NO, CREATE_DATE, REPLY_CONTENT, STATUS,
+		MEMBER_ID)
+		VALUES (reply_seq.nextval, #{boardNo}, SYSDATE,
+		#{replyContent}, 'Y',
+		#{memberId})
+	</insert>
+
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="reply">
+		UPDATE REPLY
+		SET
+		REPLY_CONTENT = #{replyContent}
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<update id="noticeUpdateReply" parameterType="reply">
+		UPDATE REPLY
+		SET
+		REPLY_CONTENT = #{replyContent}
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteReply" parameterType="reply">
+		UPDATE REPLY
+		SET STATUS =
+		'N'
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<update id="noticeDeleteReply" parameterType="reply">
+		UPDATE REPLY
+		SET
+		STATUS =
+		'N'
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 장현진 끝 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	
+	
+	
+	
+	<!--  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 미스터 박 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	
+	<select id="SelectTravelF" resultType="java.util.HashMap">
+		SELECT * FROM TRAVEL_FESTIVAL
+		WHERE TRAVEL_NO = #{travelNo}
+	</select>
+	
+	<insert id="insertTravelF" parameterType="wishlisttravel">
+		INSERT INTO WISHLIST_TRAVEL
+		(WISH_KEY, MEMBER_ID, TRAVEL_NO, TRAVEL_NAME)
+		VALUES
+		(wishlist_travel_seq.nextval, 
+		#{memberId},
+		#{travelNo},
+		#{travelName}
+		)
+	</insert>
+	
+	<select id="selectWishListe" resultType="odi_project.board.model.vo.WishListTravel">
+	    SELECT WT.*, TA.TRAVEL_IMG
+	    FROM WISHLIST_TRAVEL WT
+	    LEFT JOIN TRAVEL_ATTACHMENT TA ON WT.TRAVEL_NO = TA.TRAVEL_NO
+	    WHERE WT.MEMBER_ID = #{memberId}
+	    AND WT.STATUS = 'Y'
+	</select>
+	
+	
+		<select id="selectwishdinner" resultType="odi_project.board.model.vo.WishListDinner">
+	    SELECT DT.*, DA.DINNER_IMG
+	    FROM WISHLIST_DINNER DT
+	    LEFT JOIN DINNER_ATTACHMENT DA ON DT.DINNER_NO = DA.DINNER_NO
+	    WHERE DT.MEMBER_ID = #{memberId}
+	    AND DT.STATUS = 'Y'
+	</select>
+
+	
+	<!-- 	 <select id = "selectTravelImg" resultType="string">
+		SELECT TRAVEL_IMG 
+		FROM TRAVEL_ATTACHMENT
+		WHERE TRAVEL_NO = #{travelNo}
+	</select> 
+ -->
+	
+	
+	<update id="dinnerwishRemove" parameterType="wishListDinner">
+		UPDATE WISHLIST_DINNER
+		SET STATUS = 'N'
+		WHERE WISH_KEY = #{wishKey}
+	</update>
+	
+	<update id="wishRemove" parameterType="wishListTravel">
+		UPDATE WISHLIST_TRAVEL
+		SET STATUS = 'N'
+		WHERE WISH_KEY = #{wishKey}
+	</update>
+	
+	
+	<insert id="insertDinnerlF" parameterType="odi_project.board.model.vo.WishListDinner">
+		INSERT INTO WISHLIST_DINNER
+		(WISH_KEY, MEMBER_ID, DINNER_NO, DINNER_NAME)
+		VALUES
+		(wishlist_dinner_seq.nextval, 
+		#{memberId},
+		#{dinnerNo},
+		#{dinnerName}
+		)
+	</insert>
+
+
+
+
+
+	
+
+</mapper>

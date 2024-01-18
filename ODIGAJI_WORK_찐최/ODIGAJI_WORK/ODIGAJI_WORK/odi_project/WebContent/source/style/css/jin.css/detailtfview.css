@@ -1,0 +1,97 @@
+.container {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    margin-top: 6.3%;
+}
+
+hr{
+    color: rgb(163, 94, 163);
+    width: 1200px;
+}
+
+.mainbanner img{
+    width: 1980px;
+    height: 300px;
+    margin-top: 2%;
+}
+
+
+
+.mainbody {
+    height: 100%;
+    margin-left: 20%;
+    margin-right: 20%;
+    
+}
+
+.mainbody h1{
+    font-size: 40px;
+    margin-top: 3%;
+}
+
+.timer-area {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: purple;
+    border: 1px solid black;
+    border-radius: 15%;
+    font-size: 17px;
+    font-weight: 900;
+    color: white;
+    margin-top: 3%;
+}
+.schedule {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-weight: 900;
+}
+
+.tf_show {
+    margin-top: 3%;
+    display: flex;
+}
+.tf_item+.tf_item{
+    margin-left: 3%;
+}
+.tf_item img{
+    border-radius: 15%;
+}
+
+.like_box{
+    margin-top: 1%;
+    width: 100%;
+}
+.like_box button{
+    border: none;
+    background-color: white;
+}
+
+.like_box img{
+    width: 20px;
+    height: 20px;
+}
+
+.tf_content {
+    margin-top: 3%;
+    margin-bottom: 3%;
+    width: 1200px;
+}
+
+.mainthema {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: 900;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgb(137, 154, 163);
+}
+

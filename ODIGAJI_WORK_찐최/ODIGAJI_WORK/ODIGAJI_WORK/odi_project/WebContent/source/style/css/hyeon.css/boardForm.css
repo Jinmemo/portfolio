@@ -1,0 +1,129 @@
+.outer * {
+    box-sizing:border-box;
+}
+
+/* 공통 */
+main{
+    font-family: 'SBAggroM';
+    margin: 120px auto 10px; /* 헤더 높이만큼 여백 150추가*/
+    overflow: hidden;  /* 내용이 부모를 넘어가지 않게함 */
+    margin-left:450px;
+}
+
+.outer {
+	margin-top: 100px;
+    margin-left: 20%;
+    margin-bottom: 3%
+}
+
+textarea {
+  width: 755px; 
+  height: 300px; 
+  resize : none;
+}
+
+/* 일반 게시판 작성 타이틀 제목 */
+.general-board-title{
+    display: flex;
+    font-family: 'SBAggroB';
+    font-size: 40px;
+    margin: 20px 0 50px 400px;
+    color: rgb(101, 49, 101);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.general-board-content select,
+.general-board-content input[type="text"],
+.general-board-content textarea,
+.general-board-content table th,
+.general-board-content table td,
+.general-board-content input[type="file"] {
+    padding: 8px;
+    margin-top: 20px;
+    margin-left: 90px;
+    font-family: 'SBAggroL';
+}
+
+/* 카테고리 박스 가운데 정렬 */
+.general-board-content select{
+    text-align: center;
+}
+
+/* 카테고리, 제목, 내용, 첨부파일 타이틀 */
+.general-board-content th{
+    color:black;
+    font-family: 'SBAggroB';
+}
+
+/* 게시판 내용 전체 담은 태그 */
+.board-content{
+    background-color: rgb(248, 243, 253);
+    opacity : 0.8;
+    padding : 30px;
+    width:1050px;
+    border-radius: 8px;
+}
+
+/* 게시판 제목 text 박스 부분 */
+.general-board-content input[type="text"] {
+    width:755px;
+}
+
+
+/* 내용 타이틀 정렬 */
+.write-content{
+    padding-top:20px;
+    vertical-align:top;
+}
+
+
+/* 글자수 세기 스타일 */
+.character-count-warning {
+    color: red;
+    font-family: 'SBAggroM';
+    font-size: 15px;
+    cursor:auto;
+}
+
+/* 글자수 세기 */
+.general-board-content input[type="number"] {
+    width:100px;
+    padding: 8px;
+    margin-left: 50px;
+    text-align: center;
+    background-color: rgb(248, 243, 253);
+    border: 0px;
+    text-align: right;
+}
+
+
+/* 글자수 세기 클릭시 테두리 안생기도록 설정 */
+#character-count-warning:focus{
+    outline:none;
+}
+
+/* 작성, 취소 버튼 정렬 및 margin */
+.board-button{
+    margin-top:30px;
+    margin-bottom:30px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* 작성, 취소 버튼 크기 및 색상 */
+.board-button>button{
+    width:130px;
+    padding:10px;
+    background-color: white;
+    border: 2px solid black;
+    font-family: 'SBAggroL';
+    font-size:15px;
+}
+
+.board-button>button:hover{
+    background-color: white;
+    /* opacity : 0.6; */
+    font-family: 'SBAggroB';
+    
+}

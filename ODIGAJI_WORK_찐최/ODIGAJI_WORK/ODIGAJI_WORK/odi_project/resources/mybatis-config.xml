@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+	이 문서의 형식이 configuration(환경설정)임을 알려줌 => configuration태그가 전체를 감쌈
+	DTD : 유효성을 체크해줌 (내가 작성한 태그들이 configuration 태그 안에 존재해도 되는지를 체크해줌) - 유효성 검사해주는 파일
+-->
+<configuration>
+	<!-- settings : MyBatis 구동 시 사용할 설정들을 작성하는 영역  -->
+	<settings>
+		<!-- 만약 데이터가 null로 전달 된다면 빈칸이 아닌 null로 인식하겠다는 설정  -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		
+		<!-- underscore를 camelCase로 바꿔라  -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<!--typeAlias : VO/DTD클래스들의 풀 클래스명을 단순한 클래스명으로 사용하기 위한 별칭을 등록할 수 있는 영역  -->
+	<typeAliases>
+		<!-- com.kh 하위의 모든 클래스를 별칭으로 등록 (Board->board)이런식으로 소문자로 별칭지정해줌 -->
+		<package name="odi_project"/>
+<!-- 		<typeAlias type="com.kh.member.model.vo.Member" alias="member"/>  -->
+<!-- 		<typeAlias type="com.kh.member.model.vo.Board" alias="board"/> -->
+	</typeAliases>
+	
+	<!--
+	environments : MyBatis에 연동할 DB정보들을 등록하는 영역(여러개 DB정보 등록 가능)
+	=> default속성으로 여러개의 id중 어떤 db를 기본 db로 사용할 건지 설정해줘야 함
+	-->
+  <environments default="development">
+    <environment id="development">
+   	 <!--
+    	* transactionManager는 JDBC OR MANAGED 둘 중 하나를 선택할 수 있음
+    	- JDBC : 트랜잭션 관리를 개발자가 하겠다 (수동 commit)
+    	- Managed : 트랜잭션 관리를 트랜잭션 매니저에게 위임하겠다 (자동 commit)
+      -->
+      <transactionManager type="JDBC"/>
+      <!--
+      	*dataSource로는 POOLED와 UNPOOLED 둘 중 하나를 선택할 수 있음
+      	(ConnectionPool 사용여부)
+      	- ConnectionPool : Connection 객체를 담아둘 수 있는 영역
+      	한번 생성된 Connection 객체를 담아두면서 재사용함
+      	=> POOLED : ConnectionPool을 사용하겠다
+      	=> UNPOOLED : ConnectionPool을 사용하지 않겠다.
+        -->
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@192.168.30.5:1521:xe"/>
+        <property name="username" value="ODI"/>
+        <property name="password" value="ODI"/>
+      </dataSource>
+    </environment>
+  </environments>
+<!--   <environments default="development2">  environments는 여러개 설정해놓을 수 있음-->
+<!--     <environment id="development"> -->
+<!--       <transactionManager type="JDBC"/> -->
+<!--       <dataSource type="POOLED"> -->
+<!--         <property name="driver" value="${driver}"/> -->
+<!--         <property name="url" value="${url}"/> -->
+<!--         <property name="username" value="${username}"/> -->
+<!--         <property name="password" value="${password}"/> -->
+<!--       </dataSource> -->
+<!--     </environment> -->
+<!--   </environments> -->
+  <!-- mapper : 실행할 sql문들을 기록해둔 mapper파일들을 등록하는 영역  -->
+  <mappers>
+    <mapper resource="/mappers/main-mapper.xml"/>
+    <mapper resource="/mappers/member-mapper.xml"/>
+    <mapper resource="/mappers/board-mapper.xml"/>
+    <mapper resource="/mappers/chat-mapper.xml"/>
+  </mappers>
+</configuration>

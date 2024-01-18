@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatMapper"> <!-- namespace : 현재 mapper의 고유한 별칭  -->
+
+	<insert id="insertChat" parameterType="Chat">
+	
+		INSERT INTO CHAT_IN(
+			CHAT_KEY,
+			MEMBER_ID,
+			CHAT_NAME,
+			MEMBER_NAME
+		)
+		VALUES(
+			CHAT_IN_SEQ.NEXTVAL,
+			#{memberId},
+			#{chatName},
+			#{memberName}
+		)	
+	</insert>
+	
+	<select id="selectChat" resultType="Chat">
+		SELECT * 
+		FROM CHAT_IN
+		WHERE MEMBER_ID = #{memberId}
+		AND CHAT_NAME = #{chatName}
+		AND STATUS = 'Y'
+	</select>
+	
+	<select id="selectChatAll" resultType="Chat">
+    SELECT * FROM CHAT_IN
+    WHERE STATUS = 'Y'
+	</select>
+	
+<select id="ChatListSelect" resultType="java.util.HashMap">
+    SELECT * FROM CHAT_IN
+    WHERE CHAT_KEY = #{chatKey}
+</select>
+
+	<update id="deleteChat">
+		UPDATE CHAT_IN
+ 		SET STATUS = 'N'
+ 			WHERE CHAT_NAME = #{chatName}
+	</update>
+	
+	<insert id="createChatRoom" parameterType="ChatRoom">
+		INSERT INTO CHATROOM(
+			CHAT_NO,
+			CHAT_CREATER,
+			CHAT_IN_COUNT,
+			CHAT_NAME,
+			CHAT_KEY
+		)
+		VALUES(
+			CHATROOM_SEQ.NEXTVAL,
+			#{chatCreater},
+			#{chatInCount},
+			#{chatName},
+			#{chatKey}
+		)
+
+	</insert>
+	
+	<select id="selectMsg" resultType="message">
+		SELECT * FROM 
+		(	SELECT MEMBER_ID, CONTENT, CHAT_KEY
+	        FROM MESSAGE
+	        WHERE CHAT_KEY = #{chatKey}
+	        ORDER BY CHAT_ID DESC
+        ) A
+        WHERE ROWNUM <![CDATA[<=]]> 20
+        
+	</select>
+	
+	<insert id="insertMsg">
+		INSERT INTO MESSAGE (CHAT_ID, CONTENT, MEMBER_ID, CHAT_KEY)
+        VALUES (MSG_SEQ.NEXTVAL, #{content}, #{memberId}, #{chatKey})
+	</insert>
+	
+	
+</mapper>
